@@ -1,0 +1,89 @@
+eu.stamp-project.descartes version: 1.2.4
+org.pitest.pitest-maven version: 1.4.0
+
+First iteration: 125 issues
+no.tellu.findit.cfg.Environment (Issues: 9)
+	setDataSourceEnvironment(java.lang.String) pseudo-tested: FIXED - removed abandoned feature
+	getServiceFactoryProvider() partially-tested: FALSE - returning null is allowed
+	getAddressResolverTelluUrl() pseudo-tested: WONTFIX - tried, but it turned out to be unfeasible
+	getActionsEnabled() partially-tested: FALSE - don't test all values for property get-methods
+	setPropertyFile(java.lang.String) pseudo-tested: FIXED - removed unneeded call
+	getEnabled(java.lang.String) partially-tested: FALSE - don't test all values for property get-methods
+	getAddressCacheEnabled() pseudo-tested: WONTFIX - file output
+	getCoreDBSessionDisabled() partially-tested: FALSE - don't test all values for property get-methods
+	getOSMReverseLookupURL() pseudo-tested: WONTFIX - uses cache
+no.tellu.findit.domain.CustomerImpl (Issues: 31)
+	31 WONTFIX - get-methods called by Hibernate to persist objects
+no.tellu.findit.services.AddressLookupServiceImpl (Issues: 1)
+	lookupAddressFromTelluProvider(no.tellu.findit.domain.Position, boolean) partially-tested: WONTIFX - tried but couldn't
+no.tellu.findit.domain.SensorDeviceImpl (Issues: 9)
+	7 WONTFIX - simple get-methods called by Hibernate to persist objects
+	setSubscription(no.tellu.findit.domain.BillingDeviceSubscriptionImpl) pseudo-tested: FIXED - new test
+	getTransitiveToPermanentMode() pseudo-tested: FIXED - new test since it contains logic
+no.tellu.findit.domain.ServiceProviderImpl (Issues: 9)
+	8 WONTFIX - simple get-methods called by Hibernate to persist objects
+	setAdministrator(no.tellu.findit.domain.FinditUser) pseudo-tested: FIXED - new test
+no.tellu.findit.domain.PositionImpl (Issues: 9)
+	5 WONTFIX - simple get-methods called by Hibernate to persist objects
+	setTransientProperties(java.util.Map) pseudo-tested: FIXED - new test
+	setTextual(java.lang.String) pseudo-tested: FIXED - by new tests
+	setPermanentProperties(java.util.Map) pseudo-tested: FIXED - new test
+	setEvent(java.lang.String) pseudo-tested: WONTFIX - simple setter
+no.tellu.findit.domain.AssetImpl (Issues: 6)
+	6 WONTFIX - simple get-methods called by Hibernate to persist objects
+no.tellu.findit.domain.DomainFactory (Issues: 1)
+	loadProvider() pseudo-tested: WONTFIX - low value and hard to fix
+no.tellu.findit.domain.LocationImpl (Issues: 5)
+	2 WONTFIX - simple get-methods called by Hibernate to persist objects
+	calculateArea() pseudo-tested: FIXED - new test
+	calculateCircumference() pseudo-tested: FIXED - new test
+	getPoints() pseudo-tested: FIXED - covered by new tests
+no.tellu.findit.domain.PositionProviderImpl (Issues: 4)
+	3 WONTFIX - simple get-methods called by Hibernate to persist objects
+	setEmbeddedPosition(no.tellu.findit.domain.Position) pseudo-tested: FIXED - new test
+no.tellu.findit.domain.SensorDeviceConfigurationImpl (Issues: 5)
+	5 WONTFIX - simple get-methods called by Hibernate to persist objects
+no.tellu.findit.domain.AssetRecordImpl (Issues: 6)
+	6 WONTFIX - simple get-methods called by Hibernate to persist objects
+no.tellu.findit.domain.FinditUserImpl (Issues: 6)
+	3 WONTFIX - simple get-methods called by Hibernate to persist objects
+	getNotificationsEnabled() partially-tested: FIXED - new test
+	2 other: FIXED, FIXED by new tests
+no.tellu.findit.domain.RuleImpl (Issues: 4)
+	3 WONTFIX - simple get-methods called by Hibernate to persist objects
+	setDeactivated(boolean) pseudo-tested: WONTFIX - simple setter
+no.tellu.findit.domain.AssetGroupImpl (Issues: 3)
+	2 WONTFIX - simple get-methods called by Hibernate to persist objects
+	addAsset(no.tellu.findit.domain.Asset) pseudo-tested: FIXED - new test
+no.tellu.findit.domain.AlarmImpl (Issues: 4)
+	setTitle(java.lang.String) pseudo-tested: WONTFIX - simple setter
+	3 WONTFIX - simple get-methods called by Hibernate to persist objects
+no.tellu.findit.domain.AssetTypeImpl (Issues: 3)
+	3 WONTFIX - simple get-methods called by Hibernate to persist objects
+no.tellu.findit.util.ListToStringUtil (Issues: 2)
+	encodeString(java.lang.String) pseudo-tested: FIXED - new test
+	serialize(java.util.List) pseudo-tested: FIXED - new test
+no.tellu.findit.domain.ContactListItemImpl (Issues: 1)
+	getId() pseudo-tested: WONTFIX - simple get-methods called by Hibernate to persist objects
+no.tellu.findit.dao.hibernate.FinditUserDAOHibernate (Issues: 1)
+	deleteMultiple(java.util.List) pseudo-tested: WONTFIX - database, tried but couldn't detect change
+no.tellu.findit.util.ConvertToJson (Issues: 1)
+	convertZones(java.util.Map, java.lang.String) pseudo-tested: WONTFIX - internal method in serialization
+no.tellu.findit.domain.RuleTemplateImpl (Issues: 1)
+	getResourceId() partially-tested: WONTFIX - simple get-methods called by Hibernate to persist objects
+no.tellu.findit.dao.hibernate.RuleDAOHibernate (Issues: 1)
+	deleteAllByOwner(no.tellu.findit.domain.CustomerImpl) pseudo-tested: WONTFIX - improved test, but still not detected
+no.tellu.findit.util.RuleTemplateSubstituterVariable (Issues: 1)
+	validate() partially-tested: FIXED - new test
+no.tellu.findit.domain.IndoorLocationImpl (Issues: 1)
+	getResourceId() pseudo-tested: WONTFIX - simple get-methods called by Hibernate to persist objects
+no.tellu.findit.dao.hibernate.RuleCacheDAOHibernate (Issues: 1)
+	deleteByOwner(no.tellu.findit.domain.CustomerImpl) pseudo-tested: WONTFIX - rule cache not used in tests
+
+Results:
+FIXED: 19
+FALSE: 4
+WONTFIX: 102
+	
+Time spent:
+14 hours
