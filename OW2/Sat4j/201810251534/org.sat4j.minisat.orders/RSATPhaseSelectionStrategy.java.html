@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>RSATPhaseSelectionStrategy.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*******************************************************************************</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * SAT4J: a SATisfiability library for Java Copyright (C) 2004, 2012 Artois University and CNRS</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * All rights reserved. This program and the accompanying materials</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * are made available under the terms of the Eclipse Public License v1.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * which accompanies this distribution, and is available at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  http://www.eclipse.org/legal/epl-v10.html</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Alternatively, the contents of this file may be used under the terms of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * either the GNU Lesser General Public License Version 2.1 or later (the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#34;LGPL&#34;), in which case the provisions of the LGPL are applicable instead</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * of those above. If you wish to allow use of your version of this file only</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * under the terms of the LGPL, and not to allow others to use your version of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this file under the terms of the EPL, indicate your decision by deleting</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the provisions above and replace them with the notice and other provisions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * required by the LGPL. If you do not delete the provisions above, a recipient</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * may use your version of this file under the terms of the EPL or the LGPL.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Based on the original MiniSat specification from:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An extensible SAT solver. Niklas Een and Niklas Sorensson. Proceedings of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Sixth International Conference on Theory and Applications of Satisfiability</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Testing, LNCS 2919, pp 502-518, 2003.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See www.minisat.se for the original solver in C++.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Contributors:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *   CRIL - initial API and implementation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *******************************************************************************/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.sat4j.minisat.orders;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import static org.sat4j.core.LiteralsUtils.var;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Keeps track of the phase of the latest assignment.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author leberre</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_40'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public final class RSATPhaseSelectionStrategy extends</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        AbstractPhaserecordingSelectionStrategy {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = 1L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void assignLiteral(int p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_49'/>
+49
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_49'>1</a>
+<span>
+1. assignLiteral : All method instructions removed &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        this.phase[var(p)] = p;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_50'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_54'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return &#34;lightweight component caching from RSAT&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void updateVar(int p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_58'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void updateVarAtDecisionLevel(int p) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_61'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3e6bbac6_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3e6bbac6_49'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>assignLiteral<br/><b>Killed by : </b>none</span></span> All method instructions removed &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>""</li>
+<li class='mutator'>0.0f</li>
+<li class='mutator'>void</li>
+<li class='mutator'>"A"</li>
+<li class='mutator'>(byte)0</li>
+<li class='mutator'>1.0f</li>
+<li class='mutator'>'\40'</li>
+<li class='mutator'>false</li>
+<li class='mutator'>(byte)1</li>
+<li class='mutator'>'A'</li>
+<li class='mutator'>empty</li>
+<li class='mutator'>0</li>
+<li class='mutator'>1</li>
+<li class='mutator'>0.0</li>
+<li class='mutator'>1.0</li>
+<li class='mutator'>null</li>
+<li class='mutator'>true</li>
+<li class='mutator'>(short)1</li>
+<li class='mutator'>1L</li>
+<li class='mutator'>0L</li>
+<li class='mutator'>(short)0</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.sat4j.BugSAT34.testUnitClause[9](org.sat4j.BugSAT34) (3 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesLadderEncoding.testAtLeastOne(org.sat4j.tools.TestClausalCardinalitiesLadderEncoding) (0 ms)</li><li>org.sat4j.tools.TestAllMUSes.testEclipseTestCase2(org.sat4j.tools.TestAllMUSes) (3 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[15](org.sat4j.BugSAT34) (4 ms)</li><li>org.sat4j.BugSAT25.testReaderFromDimacsReader(org.sat4j.BugSAT25) (2 ms)</li><li>org.sat4j.SingleSolutionTest.testHasNoSingleSolution(org.sat4j.SingleSolutionTest) (2 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testAlmostGlobalInconsistencyIIIndex(org.sat4j.tools.TestAllMUSesAndCheckTest) (2 ms)</li><li>org.sat4j.BugSAT18.testSingle2(org.sat4j.BugSAT18) (0 ms)</li><li>org.sat4j.TestQuickXplain.testGlobalInconsistency(org.sat4j.TestQuickXplain) (2 ms)</li><li>org.sat4j.tools.TestGateTranslator.testSATIfThen5(org.sat4j.tools.TestGateTranslator) (0 ms)</li><li>org.sat4j.tools.BackboneTest.testFilter(org.sat4j.tools.BackboneTest) (1 ms)</li><li>org.sat4j.minisat.constraints.TestXor.clauseParityAndCard(org.sat4j.minisat.constraints.TestXor) (3 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[8](org.sat4j.BugSAT34) (3 ms)</li><li>org.sat4j.tools.TestAllMSSes.testSimpleCase(org.sat4j.tools.TestAllMSSes) (1 ms)</li><li>org.sat4j.StampPerformanceTest.testOnlyCDCLSolversCanSolveEfficientlyThis(org.sat4j.StampPerformanceTest) (1279 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[14](org.sat4j.BugSAT34) (6 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding.testAtMost2(org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding) (3 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[16](org.sat4j.BugSAT34) (6 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding.testAtMostOneWith8Vars(org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding) (3 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesProductEncoding.testAtMostOneWith8Vars(org.sat4j.tools.TestClausalCardinalitiesProductEncoding) (1 ms)</li><li>org.sat4j.core.JsonReaderTest.testJsonOutput(org.sat4j.core.JsonReaderTest) (2 ms)</li><li>org.sat4j.TestQuickXplain.testDavidTestCase(org.sat4j.TestQuickXplain) (1 ms)</li><li>org.sat4j.TestQuickXplain2001.testTheCaseOfTwoMUSes(org.sat4j.TestQuickXplain2001) (7 ms)</li><li>org.sat4j.tools.TestAllMUSes.testTheCaseOfTwoMUSes(org.sat4j.tools.TestAllMUSes) (2 ms)</li><li>org.sat4j.tools.TestGateTranslator.testSATIfThen6(org.sat4j.tools.TestGateTranslator) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding.testAtLeast2(org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding) (1 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testAlmostGlobalInconsistency(org.sat4j.tools.TestAllMUSesAndCheckTest) (2 ms)</li><li>org.sat4j.minisat.core.BugSAT117.testTimeoutOnConflict(org.sat4j.minisat.core.BugSAT117) (1 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[31](org.sat4j.BugSAT34) (4 ms)</li><li>org.sat4j.ModelIteratorTest.testInnerModelIteratorWithOneCard(org.sat4j.ModelIteratorTest) (3 ms)</li><li>org.sat4j.tools.BackboneTest.testEmptyBackbone(org.sat4j.tools.BackboneTest) (10 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding.testExactlyOne(org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding) (1 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[17](org.sat4j.BugSAT34) (5 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testAlmostGlobalInconsistencyIndex(org.sat4j.tools.TestAllMUSesAndCheckTest) (3 ms)</li><li>org.sat4j.TestConstrGroup.checkItWorksAfterRunningTheSolver(org.sat4j.TestConstrGroup) (0 ms)</li><li>org.sat4j.TestDeletionXplain.testAlmostGlobalInconsistency(org.sat4j.TestDeletionXplain) (2 ms)</li><li>org.sat4j.ModelIteratorTest.testIncModel(org.sat4j.ModelIteratorTest) (3 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding.testAtMost2(org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding) (2 ms)</li><li>org.sat4j.ModelIteratorTest.testGlobalTimeoutCounter(org.sat4j.ModelIteratorTest) (3006 ms)</li><li>org.sat4j.minisat.core.BugReset.testWithReset(org.sat4j.minisat.core.BugReset) (1 ms)</li><li>org.sat4j.TestInsertionXplain.testAlmostGlobalInconsistencyII(org.sat4j.TestInsertionXplain) (2 ms)</li><li>org.sat4j.ModelIteratorTest.testInplicantCoverIterator(org.sat4j.ModelIteratorTest) (5 ms)</li><li>org.sat4j.tools.TestAllMUSesGroupTest.testVerySimpleCase(org.sat4j.tools.TestAllMUSesGroupTest) (3 ms)</li><li>org.sat4j.minisat.constraints.TestXor.twoLargeOppositeParity(org.sat4j.minisat.constraints.TestXor) (1941 ms)</li><li>org.sat4j.tools.BackboneTest.testEasyCaseWithOnlyOneModel(org.sat4j.tools.BackboneTest) (1 ms)</li><li>org.sat4j.ModelIteratorTest.testGlobalTimeoutIterator(org.sat4j.ModelIteratorTest) (3002 ms)</li><li>org.sat4j.tools.TestGateTranslator.testSATIfThen7(org.sat4j.tools.TestGateTranslator) (1 ms)</li><li>org.sat4j.tools.TestCheckItIsAMUS.testItWorksOnSimpleNonMUSes(org.sat4j.tools.TestCheckItIsAMUS) (1 ms)</li><li>org.sat4j.tools.TestAllMUSes.testVerySimpleCase(org.sat4j.tools.TestAllMUSes) (1 ms)</li><li>org.sat4j.BugSAT107.testNonOptimalSolutionfound(org.sat4j.BugSAT107) (20 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesProductEncoding.testAtLeastOne(org.sat4j.tools.TestClausalCardinalitiesProductEncoding) (1 ms)</li><li>org.sat4j.BugSAT17.testOneSameOneContradictory(org.sat4j.BugSAT17) (0 ms)</li><li>org.sat4j.minisat.core.BugTrivialAssumption.testVoidFormula(org.sat4j.minisat.core.BugTrivialAssumption) (1 ms)</li><li>org.sat4j.TestQuickXplain.testAlmostGlobalInconsistency(org.sat4j.TestQuickXplain) (1 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[18](org.sat4j.BugSAT34) (1017 ms)</li><li>org.sat4j.tools.NegationDecoratorTest.testNegatingTwoClauses(org.sat4j.tools.NegationDecoratorTest) (0 ms)</li><li>org.sat4j.BugSAT139.checkModelIterationWithExactly(org.sat4j.BugSAT139) (3 ms)</li><li>org.sat4j.TestInsertionXplain.testGlobalInconsistency(org.sat4j.TestInsertionXplain) (3 ms)</li><li>org.sat4j.TestDeletionXplain.testAlmostGlobalInconsistencyII(org.sat4j.TestDeletionXplain) (4 ms)</li><li>org.sat4j.TestQuickXplain2001.testGlobalInconsistencyIndex(org.sat4j.TestQuickXplain2001) (2 ms)</li><li>org.sat4j.TestQuickXplain2001.testDavidTestCase(org.sat4j.TestQuickXplain2001) (1 ms)</li><li>org.sat4j.minisat.core.BugTrivialAssumption.testInconsistencyInAssumption(org.sat4j.minisat.core.BugTrivialAssumption) (0 ms)</li><li>org.sat4j.minisat.constraints.TestXor.oneParityAndOneCard(org.sat4j.minisat.constraints.TestXor) (2 ms)</li><li>org.sat4j.TestInsertionXplain.testEclipseTestCase(org.sat4j.TestInsertionXplain) (1 ms)</li><li>org.sat4j.minisat.constraints.TestXor.checkNumberOfSolutionWithClauses(org.sat4j.minisat.constraints.TestXor) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding.testAtLeast2(org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding) (2 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding.testExactly2(org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding) (1 ms)</li><li>org.sat4j.tools.TestGateTranslator.testSATIfThen8(org.sat4j.tools.TestGateTranslator) (0 ms)</li><li>org.sat4j.minisat.core.BugSAT117.testTimeoutSecondsGlobal(org.sat4j.minisat.core.BugSAT117) (1 ms)</li><li>org.sat4j.minisat.core.TestGroupedTimeoutModelEnumeration.testTimeoutOnSeconds(org.sat4j.minisat.core.TestGroupedTimeoutModelEnumeration) (2001 ms)</li><li>org.sat4j.ModelIteratorTest.testCardModel(org.sat4j.ModelIteratorTest) (7 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesLadderEncoding.testExactly2(org.sat4j.tools.TestClausalCardinalitiesLadderEncoding) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding.testAtLeastOne(org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding) (5 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding.testExactly2(org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding.testExactly4With11Vars(org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding) (15 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[19](org.sat4j.BugSAT34) (6 ms)</li><li>org.sat4j.BugSAT95.testOptimalSolutionWithFullClauseSelectorFindModel(org.sat4j.BugSAT95) (5 ms)</li><li>org.sat4j.tools.TestAllMSSes.testSimpleCasePermut(org.sat4j.tools.TestAllMSSes) (1 ms)</li><li>org.sat4j.BugSAT118.test(org.sat4j.BugSAT118) (1 ms)</li><li>org.sat4j.minisat.core.BugReset.testBugKostya(org.sat4j.minisat.core.BugReset) (0 ms)</li><li>org.sat4j.TestInsertionXplain.testGlobalInconsistencyIndex(org.sat4j.TestInsertionXplain) (2 ms)</li><li>org.sat4j.minisat.constraints.TestXor.checkNumberOfSolution(org.sat4j.minisat.constraints.TestXor) (1 ms)</li><li>org.sat4j.minisat.core.BugFatih2.testBugReport(org.sat4j.minisat.core.BugFatih2) (1 ms)</li><li>org.sat4j.tools.TestAllMUSes.testAlmostGlobalInconsistencyII(org.sat4j.tools.TestAllMUSes) (2 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesLadderEncoding.testExactlyOne(org.sat4j.tools.TestClausalCardinalitiesLadderEncoding) (1 ms)</li><li>org.sat4j.minisat.core.BugSAT117.testTimeoutSeconds(org.sat4j.minisat.core.BugSAT117) (1 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[30](org.sat4j.BugSAT34) (5 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[5](org.sat4j.BugSAT34) (5 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding.testExactlyOne(org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding) (2 ms)</li><li>org.sat4j.tools.TestAllMUSes.testExample3IJCAICedric(org.sat4j.tools.TestAllMUSes) (10 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding.testExactlyOne(org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding) (0 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[2](org.sat4j.BugSAT34) (8 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesLadderEncoding.testAtLeast2(org.sat4j.tools.TestClausalCardinalitiesLadderEncoding) (0 ms)</li><li>org.sat4j.BugSAT109.testModelIterator(org.sat4j.BugSAT109) (12 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding.testAtLeastOne(org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding) (1 ms)</li><li>org.sat4j.SingleSolutionTest.testHasASingleSolution(org.sat4j.SingleSolutionTest) (4 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testEclipseTestCase2(org.sat4j.tools.TestAllMUSesAndCheckTest) (2 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesProductEncoding.testExactlyOne(org.sat4j.tools.TestClausalCardinalitiesProductEncoding) (1 ms)</li><li>org.sat4j.minisat.constraints.TestXor.twoOppositeParity(org.sat4j.minisat.constraints.TestXor) (0 ms)</li><li>org.sat4j.ModelIteratorTest.testExternalEnumerationOnExampleForRomain(org.sat4j.ModelIteratorTest) (3 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesLadderEncoding.testAtMost4With11Vars(org.sat4j.tools.TestClausalCardinalitiesLadderEncoding) (34 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding.testAtMostOne(org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding) (1 ms)</li><li>org.sat4j.tools.TestGateTranslator.testSATIfThen3(org.sat4j.tools.TestGateTranslator) (6 ms)</li><li>org.sat4j.tools.TestAllMUSes.testGlobalInconsistencyIndex(org.sat4j.tools.TestAllMUSes) (2 ms)</li><li>org.sat4j.tools.TestAllMUSes.testAlmostGlobalInconsistencyIndex(org.sat4j.tools.TestAllMUSes) (2 ms)</li><li>org.sat4j.TestQuickXplain2001.testAlmostGlobalInconsistencyII(org.sat4j.TestQuickXplain2001) (9 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testEclipseTestCase(org.sat4j.tools.TestAllMUSesAndCheckTest) (5 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[21](org.sat4j.BugSAT34) (1004 ms)</li><li>org.sat4j.tools.RemiUtilsTest.testBugUnitClauses(org.sat4j.tools.RemiUtilsTest) (2 ms)</li><li>org.sat4j.BugSAT95.testOptimalSolutionWithMinOneIsSatisfiablePlusModel(org.sat4j.BugSAT95) (11 ms)</li><li>org.sat4j.BugSAT43.testNoDeclaredVariables(org.sat4j.BugSAT43) (0 ms)</li><li>org.sat4j.tools.TestGateTranslator.testSATIfThen(org.sat4j.tools.TestGateTranslator) (0 ms)</li><li>org.sat4j.tools.TestAllMUSes.testExample3CADECedric(org.sat4j.tools.TestAllMUSes) (13 ms)</li><li>org.sat4j.TestDeletionXplain.testAlmostGlobalInconsistencyIIIndex(org.sat4j.TestDeletionXplain) (2 ms)</li><li>org.sat4j.TestInsertionXplain.testTheCaseOfTwoMUSes(org.sat4j.TestInsertionXplain) (2 ms)</li><li>org.sat4j.ModelIteratorTest.testInternalEnumerationOnExampleForRomain(org.sat4j.ModelIteratorTest) (8 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[28](org.sat4j.BugSAT34) (10 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesProductEncoding.testAtMost2(org.sat4j.tools.TestClausalCardinalitiesProductEncoding) (1 ms)</li><li>org.sat4j.SingleSolutionTest.testHasNoSingleSolutionUNSAT(org.sat4j.SingleSolutionTest) (9 ms)</li><li>org.sat4j.TestQuickXplain2001.testEclipseTestCase(org.sat4j.TestQuickXplain2001) (2 ms)</li><li>org.sat4j.tools.TestAllMUSesGroupTest.testSimpleCase(org.sat4j.tools.TestAllMUSesGroupTest) (2 ms)</li><li>org.sat4j.BugSAT95.testOptimalSolutionWithMinOneFindModel(org.sat4j.BugSAT95) (2 ms)</li><li>org.sat4j.tools.BackboneTest.testCaseWithUnsatProblem(org.sat4j.tools.BackboneTest) (1 ms)</li><li>org.sat4j.TestInsertionXplain.testEclipseTestCase2(org.sat4j.TestInsertionXplain) (8 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding.testAtMostOne(org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding) (1 ms)</li><li>org.sat4j.minisat.core.TestMaxSatDecorator.test(org.sat4j.minisat.core.TestMaxSatDecorator) (2 ms)</li><li>org.sat4j.tools.TestAllMUSes.testAlmostGlobalInconsistency(org.sat4j.tools.TestAllMUSes) (1 ms)</li><li>org.sat4j.minisat.core.BugTrivialAssumption.testUnitClauseInFormulaSat(org.sat4j.minisat.core.BugTrivialAssumption) (0 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding.testAtLeastOne(org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding) (2 ms)</li><li>org.sat4j.TestQuickXplain2001.testAlmostGlobalInconsistencyIndex(org.sat4j.TestQuickXplain2001) (2 ms)</li><li>org.sat4j.TestQuickXplain.testAlmostGlobalInconsistencyII(org.sat4j.TestQuickXplain) (2 ms)</li><li>org.sat4j.BugSAT43.implicitDeclarationOfVariables(org.sat4j.BugSAT43) (1 ms)</li><li>org.sat4j.TestDeletionXplain.testEclipseTestCase2(org.sat4j.TestDeletionXplain) (1 ms)</li><li>org.sat4j.TestDeletionXplain.testGlobalInconsistencyIndex(org.sat4j.TestDeletionXplain) (1 ms)</li><li>org.sat4j.minisat.core.BugTrivialAssumption.testEasyInconsistencyInAssumption(org.sat4j.minisat.core.BugTrivialAssumption) (1 ms)</li><li>org.sat4j.TestQuickXplain.testAlmostGlobalInconsistencyIndex(org.sat4j.TestQuickXplain) (1 ms)</li><li>org.sat4j.TestDeletionXplain.testDavidTestCase(org.sat4j.TestDeletionXplain) (0 ms)</li><li>org.sat4j.minisat.core.Bug275101.testMaxSAtIterator(org.sat4j.minisat.core.Bug275101) (3 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesLadderEncoding.testExactly4With11Vars(org.sat4j.tools.TestClausalCardinalitiesLadderEncoding) (17 ms)</li><li>org.sat4j.BugSAT18.testSingle1(org.sat4j.BugSAT18) (0 ms)</li><li>org.sat4j.TestDeletionXplain.testAlmostGlobalInconsistencyIndex(org.sat4j.TestDeletionXplain) (3 ms)</li><li>org.sat4j.TestInsertionXplain.testAlmostGlobalInconsistency(org.sat4j.TestInsertionXplain) (6 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesLadderEncoding.testAtMostOne(org.sat4j.tools.TestClausalCardinalitiesLadderEncoding) (5 ms)</li><li>org.sat4j.tools.TestAllMUSesGroupTest.testSimpleCaseWithGroups(org.sat4j.tools.TestAllMUSesGroupTest) (7 ms)</li><li>org.sat4j.BugSAT81.testSimplePhoneSATSmall(org.sat4j.BugSAT81) (5 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testTheCaseOfTwoMUSes(org.sat4j.tools.TestAllMUSesAndCheckTest) (2 ms)</li><li>org.sat4j.BugSAT17.testAll(org.sat4j.BugSAT17) (2 ms)</li><li>org.sat4j.tools.TestAllMUSesGroupTest.testSimpleCaseWithGroups4(org.sat4j.tools.TestAllMUSesGroupTest) (2 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding.testExactly4With11Vars(org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding) (72 ms)</li><li>org.sat4j.BugSAT139.checkModelIterationWithUnitAndSatisfiableTrue(org.sat4j.BugSAT139) (22 ms)</li><li>org.sat4j.TestInsertionXplain.testAlmostGlobalInconsistencyIIIndex(org.sat4j.TestInsertionXplain) (3 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[23](org.sat4j.BugSAT34) (7 ms)</li><li>org.sat4j.BugSAT17.testSingleLit(org.sat4j.BugSAT17) (2 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding.testExactlyOne(org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding) (0 ms)</li><li>org.sat4j.TestDeletionXplain.testTheCaseOfTwoMUSes(org.sat4j.TestDeletionXplain) (3 ms)</li><li>org.sat4j.TestQuickXplain2001.testGlobalInconsistency(org.sat4j.TestQuickXplain2001) (2 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testAlmostGlobalInconsistencyII(org.sat4j.tools.TestAllMUSesAndCheckTest) (2 ms)</li><li>org.sat4j.TestSatAssumps.testIterativeCorrectWay(org.sat4j.TestSatAssumps) (475 ms)</li><li>org.sat4j.BugSAT95.testOptimalSolutionWithFullClauseSelectorIsSatisfiablePlusModel(org.sat4j.BugSAT95) (2 ms)</li><li>org.sat4j.tools.BackboneTest.testBugBr4cp(org.sat4j.tools.BackboneTest) (2 ms)</li><li>org.sat4j.minisat.core.Bug275101.testMaxSAtIteratorIfSat(org.sat4j.minisat.core.Bug275101) (5 ms)</li><li>org.sat4j.TestQuickXplain2001.testAlmostGlobalInconsistencyIIIndex(org.sat4j.TestQuickXplain2001) (2 ms)</li><li>org.sat4j.TestConstrGroup.checkTheExpectedWayToDealWithUnitClausesToRemove(org.sat4j.TestConstrGroup) (1 ms)</li><li>org.sat4j.minisat.core.TestGroupedTimeoutModelEnumeration.testTimeoutOnMilliSeconds(org.sat4j.minisat.core.TestGroupedTimeoutModelEnumeration) (2002 ms)</li><li>org.sat4j.TestQuickXplain.testGlobalInconsistencyIndex(org.sat4j.TestQuickXplain) (1 ms)</li><li>org.sat4j.BugSAT107.testOptimalSolutionfound(org.sat4j.BugSAT107) (12 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding.testExactly2(org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding) (2 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding.testExactly2(org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding) (1 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testVerySimpleCase(org.sat4j.tools.TestAllMUSesAndCheckTest) (5 ms)</li><li>org.sat4j.BugSAT107.testNoSolutionExists(org.sat4j.BugSAT107) (19 ms)</li><li>org.sat4j.tools.TestAllMUSes.testSimpleCase(org.sat4j.tools.TestAllMUSes) (2 ms)</li><li>org.sat4j.TestSatAssumps.testIterativeAssumptionCallsWithSet(org.sat4j.TestSatAssumps) (710 ms)</li><li>org.sat4j.BugSAT17.testSameLits(org.sat4j.BugSAT17) (1 ms)</li><li>org.sat4j.minisat.core.BugReset.problemTest(org.sat4j.minisat.core.BugReset) (5 ms)</li><li>org.sat4j.minisat.core.BugThomas.testBugReport(org.sat4j.minisat.core.BugThomas) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding.testAtMost4With11Vars(org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding) (46 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesProductEncoding.testExactly4With11Vars(org.sat4j.tools.TestClausalCardinalitiesProductEncoding) (10 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testGlobalInconsistencyIndex(org.sat4j.tools.TestAllMUSesAndCheckTest) (2 ms)</li><li>org.sat4j.ModelIteratorTest.testIsSatisfiableVecInt(org.sat4j.ModelIteratorTest) (5 ms)</li><li>org.sat4j.minisat.core.BugFatih.testBugReport(org.sat4j.minisat.core.BugFatih) (3 ms)</li><li>org.sat4j.BugSAT25.testReaderFromLecteurDimacs(org.sat4j.BugSAT25) (1 ms)</li><li>org.sat4j.tools.TestAllMUSes.testAlmostGlobalInconsistencyIIIndex(org.sat4j.tools.TestAllMUSes) (1 ms)</li><li>org.sat4j.TestQuickXplain.testEclipseTestCase2(org.sat4j.TestQuickXplain) (1 ms)</li><li>org.sat4j.minisat.core.BugReset.problemTest2(org.sat4j.minisat.core.BugReset) (2 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testExample3IJCAICedric(org.sat4j.tools.TestAllMUSesAndCheckTest) (25 ms)</li><li>org.sat4j.minisat.core.BugSAT117.testTimeoutOnConflictGlobal(org.sat4j.minisat.core.BugSAT117) (0 ms)</li><li>org.sat4j.BugSAT17.testInconsistentLits(org.sat4j.BugSAT17) (0 ms)</li><li>org.sat4j.tools.TestAllMUSes.testEclipseTestCase(org.sat4j.tools.TestAllMUSes) (1 ms)</li><li>org.sat4j.BugSAT139.checkModelIterationWithUnit(org.sat4j.BugSAT139) (3 ms)</li><li>org.sat4j.tools.TestGateTranslator.testSATIfThen1(org.sat4j.tools.TestGateTranslator) (1 ms)</li><li>org.sat4j.BugSAT37.testSolver(org.sat4j.BugSAT37) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding.testAtLeast2(org.sat4j.tools.TestClausalCardinalitiesBinaryEncoding) (4 ms)</li><li>org.sat4j.tools.TestAllMUSes.testGlobalInconsistency(org.sat4j.tools.TestAllMUSes) (1 ms)</li><li>org.sat4j.BugSAT17.testTwoLits(org.sat4j.BugSAT17) (1 ms)</li><li>org.sat4j.tools.TestAllMUSesGroupTest.testSimpleCaseWithGroups2(org.sat4j.tools.TestAllMUSesGroupTest) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding.testAtMost2(org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding) (1 ms)</li><li>org.sat4j.tools.BackboneTest.testBugUnitClauses(org.sat4j.tools.BackboneTest) (1 ms)</li><li>org.sat4j.TestQuickXplain.testEclipseTestCase(org.sat4j.TestQuickXplain) (1 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[29](org.sat4j.BugSAT34) (5 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testExample1CADECedric(org.sat4j.tools.TestAllMUSesAndCheckTest) (2 ms)</li><li>org.sat4j.BugSAT26.testConsecutiveCallToSolver(org.sat4j.BugSAT26) (188 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding.testAtMost4With11Vars(org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding) (83 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding.testAtMostOneWith8Vars(org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding) (1 ms)</li><li>org.sat4j.tools.TestAllMUSes.testExample1CADECedric(org.sat4j.tools.TestAllMUSes) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesLadderEncoding.testAtMostOneWith8Vars(org.sat4j.tools.TestClausalCardinalitiesLadderEncoding) (5 ms)</li><li>org.sat4j.ModelIteratorTest.testInnerModelIterator(org.sat4j.ModelIteratorTest) (3 ms)</li><li>org.sat4j.tools.TestGateTranslator.testSATIfThen2(org.sat4j.tools.TestGateTranslator) (0 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding.testAtLeast2(org.sat4j.tools.TestClausalCardinalitiesCommanderEncoding) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding.testAtMostOne(org.sat4j.tools.TestClausalCardinalitiesSequentialEncoding) (1 ms)</li><li>org.sat4j.BugSAT107.testNoSolutionfound(org.sat4j.BugSAT107) (9 ms)</li><li>org.sat4j.tools.BackboneTest.testBugBr4cpWithExplanation(org.sat4j.tools.BackboneTest) (2 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesLadderEncoding.testAtMost2(org.sat4j.tools.TestClausalCardinalitiesLadderEncoding) (1 ms)</li><li>org.sat4j.BugSAT18.testAll(org.sat4j.BugSAT18) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesProductEncoding.testExactly2(org.sat4j.tools.TestClausalCardinalitiesProductEncoding) (1 ms)</li><li>org.sat4j.ModelIteratorTest.testSpecificValues(org.sat4j.ModelIteratorTest) (42 ms)</li><li>org.sat4j.tools.NegationDecoratorTest.testNegatingASingleClause(org.sat4j.tools.NegationDecoratorTest) (1 ms)</li><li>org.sat4j.TestQuickXplain2001.testAlmostGlobalInconsistency(org.sat4j.TestQuickXplain2001) (7 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding.testAtLeastOne(org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding) (5 ms)</li><li>org.sat4j.tools.TestCheckItIsAMUS.testItWorksOnSimpleMUSes(org.sat4j.tools.TestCheckItIsAMUS) (8 ms)</li><li>org.sat4j.TestDeletionXplain.testEclipseTestCase(org.sat4j.TestDeletionXplain) (3 ms)</li><li>org.sat4j.BugSAT43.testDeclaredVariables(org.sat4j.BugSAT43) (2 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[27](org.sat4j.BugSAT34) (4 ms)</li><li>org.sat4j.TestQuickXplain.testTheCaseOfTwoMUSes(org.sat4j.TestQuickXplain) (1 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[20](org.sat4j.BugSAT34) (19 ms)</li><li>org.sat4j.TestQuickXplain.testAlmostGlobalInconsistencyIIIndex(org.sat4j.TestQuickXplain) (1 ms)</li><li>org.sat4j.TestDeletionXplain.testGlobalInconsistency(org.sat4j.TestDeletionXplain) (6 ms)</li><li>org.sat4j.minisat.core.BugSAT117.testTimeoutConflictsLoop(org.sat4j.minisat.core.BugSAT117) (70 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesProductEncoding.testAtMostOne(org.sat4j.tools.TestClausalCardinalitiesProductEncoding) (1 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesProductEncoding.testAtLeast2(org.sat4j.tools.TestClausalCardinalitiesProductEncoding) (1 ms)</li><li>org.sat4j.ModelIteratorTest.testModelIteratorLimit(org.sat4j.ModelIteratorTest) (1 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testGlobalInconsistency(org.sat4j.tools.TestAllMUSesAndCheckTest) (2 ms)</li><li>org.sat4j.TestSatAssumps.testIterativeAssumptionCallsWithList(org.sat4j.TestSatAssumps) (892 ms)</li><li>org.sat4j.BugSAT109.testSubModelIterator(org.sat4j.BugSAT109) (4 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding.testAtMost2(org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding) (2 ms)</li><li>org.sat4j.minisat.core.BugTrivialAssumption.testBinaryClauseInFormula(org.sat4j.minisat.core.BugTrivialAssumption) (0 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[22](org.sat4j.BugSAT34) (13 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesProductEncoding.testAtMost4With11Vars(org.sat4j.tools.TestClausalCardinalitiesProductEncoding) (21 ms)</li><li>org.sat4j.TestQuickXplain2001.testEclipseTestCase2(org.sat4j.TestQuickXplain2001) (4 ms)</li><li>org.sat4j.TestInsertionXplain.testAlmostGlobalInconsistencyIndex(org.sat4j.TestInsertionXplain) (2 ms)</li><li>org.sat4j.BugSAT34.testUnitClause[1](org.sat4j.BugSAT34) (7 ms)</li><li>org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding.testAtMostOne(org.sat4j.tools.TestClausalCardinalitiesBinomialEncoding) (1 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testSimpleCase(org.sat4j.tools.TestAllMUSesAndCheckTest) (5 ms)</li><li>org.sat4j.minisat.constraints.TestXor.checkNumberOfSolutionWithCards(org.sat4j.minisat.constraints.TestXor) (4 ms)</li><li>org.sat4j.TestInsertionXplain.testDavidTestCase(org.sat4j.TestInsertionXplain) (2 ms)</li><li>org.sat4j.tools.TestAllMUSesGroupTest.testSimpleCaseWithGroups3(org.sat4j.tools.TestAllMUSesGroupTest) (1 ms)</li><li>org.sat4j.SingleSolutionTest.testHasASingleSolutionIVecInt(org.sat4j.SingleSolutionTest) (2 ms)</li><li>org.sat4j.tools.TestAllMUSesAndCheckTest.testExample3CADECedric(org.sat4j.tools.TestAllMUSesAndCheckTest) (18 ms)</li><li>org.sat4j.ModelIteratorTest.testModelIterator(org.sat4j.ModelIteratorTest) (5 ms)</li><li>org.sat4j.minisat.core.BugTrivialAssumption.testUnitClauseInFormulaUnsat(org.sat4j.minisat.core.BugTrivialAssumption) (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.0
+
+</body>
+</html>
