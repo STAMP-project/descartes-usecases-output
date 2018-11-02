@@ -1,17 +1,17 @@
-var treeMapJson = {"id":"Clover database fr sep 14 2018 14:11:22 CEST0","name":"","data":{
-    "$area":14611.0,"$color":29.416195,"title":
-    " 14611 Elements, 29,4% Coverage"},"children":[{"id":
+var treeMapJson = {"id":"Clover database fr nov 2 2018 14:45:06 CET0","name":"","data":{
+    "$area":16346.0,"$color":26.520248,"title":
+    " 16346 Elements, 26,5% Coverage"},"children":[{"id":
       "no.tellu.findit.cfg20","name":"no.tellu.findit.cfg","data":{"$area":
         635.0,"$color":50.55118,"title":
         "no.tellu.findit.cfg 635 Elements, 50,6% Coverage"},"children":[]},{
-      "id":"no.tellu.security14200","name":"no.tellu.security","data":{
+      "id":"no.tellu.security15935","name":"no.tellu.security","data":{
         "$area":2.0,"$color":0.0,"title":
         "no.tellu.security 2 Elements, 0% Coverage"},"children":[]},{"id":
-      "no.tellu.findit.util12200","name":"no.tellu.findit.util","data":{
-        "$area":2000.0,"$color":18.15,"title":
-        "no.tellu.findit.util 2000 Elements, 18,2% Coverage"},"children":[]},
-    {"id":"no.tellu.security.jpa14202","name":"no.tellu.security.jpa","data":
-      {"$area":365.0,"$color":26.575342,"title":
+      "no.tellu.findit.util13708","name":"no.tellu.findit.util","data":{
+        "$area":2227.0,"$color":17.961384,"title":
+        "no.tellu.findit.util 2227 Elements, 18% Coverage"},"children":[]},{
+      "id":"no.tellu.security.jpa15937","name":"no.tellu.security.jpa",
+      "data":{"$area":365.0,"$color":26.575342,"title":
         "no.tellu.security.jpa 365 Elements, 26,6% Coverage"},"children":[]},
     {"id":"no.tellu.findit.action8","name":"no.tellu.findit.action","data":{
         "$area":12.0,"$color":0.0,"title":
@@ -22,16 +22,16 @@ var treeMapJson = {"id":"Clover database fr sep 14 2018 14:11:22 CEST0","name":"
       "id":"no.tellu.findit.domain3230","name":"no.tellu.findit.domain",
       "data":{"$area":7259.0,"$color":36.87836,"title":
         "no.tellu.findit.domain 7259 Elements, 36,9% Coverage"},"children":[]},
-    {"id":"no.tellu.security.util14567","name":"no.tellu.security.util",
+    {"id":"no.tellu.security.util16302","name":"no.tellu.security.util",
       "data":{"$area":44.0,"$color":0.0,"title":
         "no.tellu.security.util 44 Elements, 0% Coverage"},"children":[]},{
       "id":"no.tellu.findit.cmd655","name":"no.tellu.findit.cmd","data":{
         "$area":894.0,"$color":23.489933,"title":
         "no.tellu.findit.cmd 894 Elements, 23,5% Coverage"},"children":[]},{
       "id":"no.tellu.findit.services.cassandra11816","name":
-      "no.tellu.findit.services.cassandra","data":{"$area":384.0,"$color":
+      "no.tellu.findit.services.cassandra","data":{"$area":1892.0,"$color":
         0.0,"title":
-        "no.tellu.findit.services.cassandra 384 Elements, 0% Coverage"},
+        "no.tellu.findit.services.cassandra 1892 Elements, 0% Coverage"},
       "children":[]},{"id":"no.tellu.findit0","name":"no.tellu.findit",
       "data":{"$area":8.0,"$color":25.0,"title":
         "no.tellu.findit 8 Elements, 25% Coverage"},"children":[]},{"id":

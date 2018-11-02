@@ -1,6 +1,6 @@
-var treeMapJson = {"id":"Clover database fr sep 14 2018 14:11:22 CEST0","name":"","data":{
-    "$area":14611.0,"$color":29.416195,"title":
-    " 14611 Elements, 29,4% Coverage"},"children":[{"id":
+var treeMapJson = {"id":"Clover database fr nov 2 2018 14:45:06 CET0","name":"","data":{
+    "$area":16346.0,"$color":26.520248,"title":
+    " 16346 Elements, 26,5% Coverage"},"children":[{"id":
       "no.tellu.findit.cfg20","name":"no.tellu.findit.cfg","data":{"$area":
         635.0,"$color":50.55118,"title":
         "no.tellu.findit.cfg 635 Elements, 50,6% Coverage"},"children":[{
@@ -21,157 +21,161 @@ var treeMapJson = {"id":"Clover database fr sep 14 2018 14:11:22 CEST0","name":"
           "data":{"$area":169.0,"$color":84.02367,"path":
             "no/tellu/findit/cfg/HibernateUtil.html#HibernateUtil","title":
             "HibernateUtil 169 Elements, 84% Coverage"},"children":[]}]},{
-      "id":"no.tellu.security14200","name":"no.tellu.security","data":{
+      "id":"no.tellu.security15935","name":"no.tellu.security","data":{
         "$area":2.0,"$color":0.0,"title":
         "no.tellu.security 2 Elements, 0% Coverage"},"children":[{"id":
-          "Account14200","name":"Account","data":{"$area":0.0,"$color":
+          "Account15935","name":"Account","data":{"$area":0.0,"$color":
             -100.0,"path":"no/tellu/security/Account.html#Account","title":
             "Account 0 Elements,  -  Coverage"},"children":[]},{"id":
-          "Address14200","name":"Address","data":{"$area":0.0,"$color":
+          "Address15935","name":"Address","data":{"$area":0.0,"$color":
             -100.0,"path":"no/tellu/security/Address.html#Address","title":
             "Address 0 Elements,  -  Coverage"},"children":[]},{"id":
-          "EncryptUtility14200","name":"EncryptUtility","data":{"$area":
+          "EncryptUtility15935","name":"EncryptUtility","data":{"$area":
             0.0,"$color":-100.0,"path":
             "no/tellu/security/EncryptUtility.html#EncryptUtility","title":
             "EncryptUtility 0 Elements,  -  Coverage"},"children":[]},{"id":
-          "Role14200","name":"Role","data":{"$area":0.0,"$color":-100.0,
+          "Role15935","name":"Role","data":{"$area":0.0,"$color":-100.0,
             "path":"no/tellu/security/Role.html#Role","title":
             "Role 0 Elements,  -  Coverage"},"children":[]},{"id":
-          "SecurityUtility14200","name":"SecurityUtility","data":{"$area":
+          "SecurityUtility15935","name":"SecurityUtility","data":{"$area":
             2.0,"$color":0.0,"path":
             "no/tellu/security/SecurityUtility.html#SecurityUtility","title":
             "SecurityUtility 2 Elements, 0% Coverage"},"children":[]},{"id":
-          "User14202","name":"User","data":{"$area":0.0,"$color":-100.0,
+          "User15937","name":"User","data":{"$area":0.0,"$color":-100.0,
             "path":"no/tellu/security/User.html#User","title":
             "User 0 Elements,  -  Coverage"},"children":[]}]},{"id":
-      "no.tellu.findit.util12200","name":"no.tellu.findit.util","data":{
-        "$area":2000.0,"$color":18.15,"title":
-        "no.tellu.findit.util 2000 Elements, 18,2% Coverage"},"children":[{
-          "id":"Circle12200","name":"Circle","data":{"$area":15.0,"$color":
+      "no.tellu.findit.util13708","name":"no.tellu.findit.util","data":{
+        "$area":2227.0,"$color":17.961384,"title":
+        "no.tellu.findit.util 2227 Elements, 18% Coverage"},"children":[{
+          "id":"CassandraUtil13708","name":"CassandraUtil","data":{"$area":
+            227.0,"$color":16.299559,"path":
+            "no/tellu/findit/util/CassandraUtil.html#CassandraUtil","title":
+            "CassandraUtil 227 Elements, 16,3% Coverage"},"children":[]},{
+          "id":"Circle13935","name":"Circle","data":{"$area":15.0,"$color":
             100.0,"path":"no/tellu/findit/util/Circle.html#Circle","title":
             "Circle 15 Elements, 100% Coverage"},"children":[]},{"id":
-          "ConvertToJson12215","name":"ConvertToJson","data":{"$area":
+          "ConvertToJson13950","name":"ConvertToJson","data":{"$area":
             326.0,"$color":28.22086,"path":
             "no/tellu/findit/util/ConvertToJson.html#ConvertToJson","title":
             "ConvertToJson 326 Elements, 28,2% Coverage"},"children":[]},{
-          "id":"DatabaseInit12541","name":"DatabaseInit","data":{"$area":
+          "id":"DatabaseInit14276","name":"DatabaseInit","data":{"$area":
             166.0,"$color":0.0,"path":
             "no/tellu/findit/util/DatabaseInit.html#DatabaseInit","title":
             "DatabaseInit 166 Elements, 0% Coverage"},"children":[]},{"id":
-          "DomainClassTypeName12707","name":"DomainClassTypeName","data":{
+          "DomainClassTypeName14442","name":"DomainClassTypeName","data":{
             "$area":379.0,"$color":0.0,"path":
             "no/tellu/findit/util/DomainClassTypeName.html#DomainClassTypeName",
             "title":"DomainClassTypeName 379 Elements, 0% Coverage"},
-          "children":[]},{"id":"IpRange13086","name":"IpRange","data":{
+          "children":[]},{"id":"IpRange14821","name":"IpRange","data":{
             "$area":10.0,"$color":100.0,"path":
             "no/tellu/findit/util/IpRange.html#IpRange","title":
             "IpRange 10 Elements, 100% Coverage"},"children":[]},{"id":
-          "JsonUtil13096","name":"JsonUtil","data":{"$area":254.0,"$color":
+          "JsonUtil14831","name":"JsonUtil","data":{"$area":254.0,"$color":
             1.1811024,"path":"no/tellu/findit/util/JsonUtil.html#JsonUtil",
             "title":"JsonUtil 254 Elements, 1,2% Coverage"},"children":[]},{
-          "id":"ListToStringUtil13350","name":"ListToStringUtil","data":{
+          "id":"ListToStringUtil15085","name":"ListToStringUtil","data":{
             "$area":44.0,"$color":38.636364,"path":
             "no/tellu/findit/util/ListToStringUtil.html#ListToStringUtil",
             "title":"ListToStringUtil 44 Elements, 38,6% Coverage"},
-          "children":[]},{"id":"MapToStringUtil13394","name":
+          "children":[]},{"id":"MapToStringUtil15129","name":
           "MapToStringUtil","data":{"$area":75.0,"$color":85.333336,"path":
             "no/tellu/findit/util/MapToStringUtil.html#MapToStringUtil",
             "title":"MapToStringUtil 75 Elements, 85,3% Coverage"},
-          "children":[]},{"id":"MapUtil13469","name":"MapUtil","data":{
+          "children":[]},{"id":"MapUtil15204","name":"MapUtil","data":{
             "$area":157.0,"$color":0.0,"path":
             "no/tellu/findit/util/MapUtil.html#MapUtil","title":
             "MapUtil 157 Elements, 0% Coverage"},"children":[]},{"id":
-          "ObservationDataValue13626","name":"ObservationDataValue","data":{
+          "ObservationDataValue15361","name":"ObservationDataValue","data":{
             "$area":22.0,"$color":0.0,"path":
             "no/tellu/findit/util/ObservationDataValue.html#ObservationDataValue",
             "title":"ObservationDataValue 22 Elements, 0% Coverage"},
-          "children":[]},{"id":"PaginationData13648","name":
+          "children":[]},{"id":"PaginationData15383","name":
           "PaginationData","data":{"$area":26.0,"$color":0.0,"path":
             "no/tellu/findit/util/PaginationData.html#PaginationData",
             "title":"PaginationData 26 Elements, 0% Coverage"},"children":[]},
-        {"id":"Pair13674","name":"Pair","data":{"$area":25.0,"$color":0.0,
+        {"id":"Pair15409","name":"Pair","data":{"$area":25.0,"$color":0.0,
             "path":"no/tellu/findit/util/Pair.html#Pair","title":
             "Pair 25 Elements, 0% Coverage"},"children":[]},{"id":
-          "PrintRedirect13699","name":"PrintRedirect","data":{"$area":17.0,
+          "PrintRedirect15434","name":"PrintRedirect","data":{"$area":17.0,
             "$color":0.0,"path":
             "no/tellu/findit/util/PrintRedirect.html#PrintRedirect","title":
             "PrintRedirect 17 Elements, 0% Coverage"},"children":[]},{"id":
-          "PropertyUtil13716","name":"PropertyUtil","data":{"$area":17.0,
+          "PropertyUtil15451","name":"PropertyUtil","data":{"$area":17.0,
             "$color":0.0,"path":
             "no/tellu/findit/util/PropertyUtil.html#PropertyUtil","title":
             "PropertyUtil 17 Elements, 0% Coverage"},"children":[]},{"id":
-          "RuleEngineStatusManager13733","name":"RuleEngineStatusManager",
+          "RuleEngineStatusManager15468","name":"RuleEngineStatusManager",
           "data":{"$area":37.0,"$color":0.0,"path":
             "no/tellu/findit/util/RuleEngineStatusManager.html#RuleEngineStatusManager",
             "title":"RuleEngineStatusManager 37 Elements, 0% Coverage"},
-          "children":[]},{"id":"RuleTemplateSubstituter13770","name":
+          "children":[]},{"id":"RuleTemplateSubstituter15505","name":
           "RuleTemplateSubstituter","data":{"$area":184.0,"$color":75.0,
             "path":
             "no/tellu/findit/util/RuleTemplateSubstituter.html#RuleTemplateSubstituter",
             "title":"RuleTemplateSubstituter 184 Elements, 75% Coverage"},
-          "children":[]},{"id":"RuleTemplateSubstituterException13954",
+          "children":[]},{"id":"RuleTemplateSubstituterException15689",
           "name":"RuleTemplateSubstituterException","data":{"$area":6.0,
             "$color":0.0,"path":
             "no/tellu/findit/util/RuleTemplateSubstituterException.html#RuleTemplateSubstituterException",
             "title":
             "RuleTemplateSubstituterException 6 Elements, 0% Coverage"},
-          "children":[]},{"id":"RuleTemplateSubstituterVariable13960","name":
+          "children":[]},{"id":"RuleTemplateSubstituterVariable15695","name":
           "RuleTemplateSubstituterVariable","data":{"$area":30.0,"$color":
             80.0,"path":
             "no/tellu/findit/util/RuleTemplateSubstituterVariable.html#RuleTemplateSubstituterVariable",
             "title":
             "RuleTemplateSubstituterVariable 30 Elements, 80% Coverage"},
-          "children":[]},{"id":"TimeFormatter13990","name":"TimeFormatter",
+          "children":[]},{"id":"TimeFormatter15725","name":"TimeFormatter",
           "data":{"$area":11.0,"$color":0.0,"path":
             "no/tellu/findit/util/TimeFormatter.html#TimeFormatter","title":
             "TimeFormatter 11 Elements, 0% Coverage"},"children":[]},{"id":
-          "TinyDomainObject14001","name":"TinyDomainObject","data":{"$area":
+          "TinyDomainObject15736","name":"TinyDomainObject","data":{"$area":
             23.0,"$color":0.0,"path":
             "no/tellu/findit/util/TinyDomainObject.html#TinyDomainObject",
             "title":"TinyDomainObject 23 Elements, 0% Coverage"},"children":[]},
-        {"id":"TrackingUtilities14024","name":"TrackingUtilities","data":{
+        {"id":"TrackingUtilities15759","name":"TrackingUtilities","data":{
             "$area":145.0,"$color":0.0,"path":
             "no/tellu/findit/util/TrackingUtilities.html#TrackingUtilities",
             "title":"TrackingUtilities 145 Elements, 0% Coverage"},
-          "children":[]},{"id":"Triplet14169","name":"Triplet","data":{
+          "children":[]},{"id":"Triplet15904","name":"Triplet","data":{
             "$area":31.0,"$color":0.0,"path":
             "no/tellu/findit/util/Triplet.html#Triplet","title":
             "Triplet 31 Elements, 0% Coverage"},"children":[]}]},{"id":
-      "no.tellu.security.jpa14202","name":"no.tellu.security.jpa","data":{
+      "no.tellu.security.jpa15937","name":"no.tellu.security.jpa","data":{
         "$area":365.0,"$color":26.575342,"title":
         "no.tellu.security.jpa 365 Elements, 26,6% Coverage"},"children":[{
-          "id":"BaseAccount14202","name":"BaseAccount","data":{"$area":
+          "id":"BaseAccount15937","name":"BaseAccount","data":{"$area":
             31.0,"$color":51.6129,"path":
             "no/tellu/security/jpa/BaseAccount.html#BaseAccount","title":
             "BaseAccount 31 Elements, 51,6% Coverage"},"children":[]},{"id":
-          "BaseAddress14233","name":"BaseAddress","data":{"$area":36.0,
+          "BaseAddress15968","name":"BaseAddress","data":{"$area":36.0,
             "$color":100.0,"path":
             "no/tellu/security/jpa/BaseAddress.html#BaseAddress","title":
             "BaseAddress 36 Elements, 100% Coverage"},"children":[]},{"id":
-          "BaseRole14269","name":"BaseRole","data":{"$area":77.0,"$color":
+          "BaseRole16004","name":"BaseRole","data":{"$area":77.0,"$color":
             3.8961039,"path":
             "no/tellu/security/jpa/BaseRole.html#BaseRole","title":
             "BaseRole 77 Elements, 3,9% Coverage"},"children":[]},{"id":
-          "BaseUser14346","name":"BaseUser","data":{"$area":50.0,"$color":
+          "BaseUser16081","name":"BaseUser","data":{"$area":50.0,"$color":
             66.0,"path":"no/tellu/security/jpa/BaseUser.html#BaseUser",
             "title":"BaseUser 50 Elements, 66% Coverage"},"children":[]},{
-          "id":"BaseUserGroup14396","name":"BaseUserGroup","data":{"$area":
+          "id":"BaseUserGroup16131","name":"BaseUserGroup","data":{"$area":
             37.0,"$color":0.0,"path":
             "no/tellu/security/jpa/BaseUserGroup.html#BaseUserGroup","title":
             "BaseUserGroup 37 Elements, 0% Coverage"},"children":[]},{"id":
-          "BaseUserGroupMembership14433","name":"BaseUserGroupMembership",
+          "BaseUserGroupMembership16168","name":"BaseUserGroupMembership",
           "data":{"$area":16.0,"$color":0.0,"path":
             "no/tellu/security/jpa/BaseUserGroupMembership.html#BaseUserGroupMembership",
             "title":"BaseUserGroupMembership 16 Elements, 0% Coverage"},
-          "children":[]},{"id":"ClassName14449","name":"ClassName","data":{
+          "children":[]},{"id":"ClassName16184","name":"ClassName","data":{
             "$area":26.0,"$color":11.538462,"path":
             "no/tellu/security/jpa/ClassName.html#ClassName","title":
             "ClassName 26 Elements, 11,5% Coverage"},"children":[]},{"id":
-          "Permission14475","name":"Permission","data":{"$area":26.0,
+          "Permission16210","name":"Permission","data":{"$area":26.0,
             "$color":11.538462,"path":
             "no/tellu/security/jpa/Permission.html#Permission","title":
             "Permission 26 Elements, 11,5% Coverage"},"children":[]},{"id":
-          "Relation14501","name":"Relation","data":{"$area":66.0,"$color":
+          "Relation16236","name":"Relation","data":{"$area":66.0,"$color":
             4.5454545,"path":
             "no/tellu/security/jpa/Relation.html#Relation","title":
             "Relation 66 Elements, 4,5% Coverage"},"children":[]}]},{"id":
@@ -1024,10 +1028,10 @@ var treeMapJson = {"id":"Clover database fr sep 14 2018 14:11:22 CEST0","name":"
             74.0,"$color":2.7027028,"path":
             "no/tellu/findit/domain/WidgetTemplate.html#WidgetTemplate",
             "title":"WidgetTemplate 74 Elements, 2,7% Coverage"},"children":[]}]},
-    {"id":"no.tellu.security.util14567","name":"no.tellu.security.util",
+    {"id":"no.tellu.security.util16302","name":"no.tellu.security.util",
       "data":{"$area":44.0,"$color":0.0,"title":
         "no.tellu.security.util 44 Elements, 0% Coverage"},"children":[{"id":
-          "SetToStringUtil14567","name":"SetToStringUtil","data":{"$area":
+          "SetToStringUtil16302","name":"SetToStringUtil","data":{"$area":
             44.0,"$color":0.0,"path":
             "no/tellu/security/util/SetToStringUtil.html#SetToStringUtil",
             "title":"SetToStringUtil 44 Elements, 0% Coverage"},"children":[]}]},
@@ -1228,9 +1232,9 @@ var treeMapJson = {"id":"Clover database fr sep 14 2018 14:11:22 CEST0","name":"
             "title":
             "UpdateCustomerDroolsFiveChanged.Flag 0 Elements,  -  Coverage"},
           "children":[]}]},{"id":"no.tellu.findit.services.cassandra11816",
-      "name":"no.tellu.findit.services.cassandra","data":{"$area":384.0,
+      "name":"no.tellu.findit.services.cassandra","data":{"$area":1892.0,
         "$color":0.0,"title":
-        "no.tellu.findit.services.cassandra 384 Elements, 0% Coverage"},
+        "no.tellu.findit.services.cassandra 1892 Elements, 0% Coverage"},
       "children":[{"id":"ActivityLogException11816","name":
           "ActivityLogException","data":{"$area":8.0,"$color":0.0,"path":
             "no/tellu/findit/services/cassandra/ActivityLogException.html#ActivityLogException",
@@ -1247,38 +1251,85 @@ var treeMapJson = {"id":"Clover database fr sep 14 2018 14:11:22 CEST0","name":"
           "ActivityLogKey","data":{"$area":14.0,"$color":0.0,"path":
             "no/tellu/findit/services/cassandra/ActivityLogKey.html#ActivityLogKey",
             "title":"ActivityLogKey 14 Elements, 0% Coverage"},"children":[]},
-        {"id":"AssetHistory11927","name":"AssetHistory","data":{"$area":
-            62.0,"$color":0.0,"path":
+        {"id":"ActivityLogService11927","name":"ActivityLogService","data":{
+            "$area":0.0,"$color":-100.0,"path":
+            "no/tellu/findit/services/cassandra/ActivityLogService.html#ActivityLogService",
+            "title":"ActivityLogService 0 Elements,  -  Coverage"},
+          "children":[]},{"id":"ActivityLogServiceImpl11927","name":
+          "ActivityLogServiceImpl","data":{"$area":261.0,"$color":0.0,"path":
+            
+            "no/tellu/findit/services/cassandra/ActivityLogServiceImpl.html#ActivityLogServiceImpl",
+            "title":"ActivityLogServiceImpl 261 Elements, 0% Coverage"},
+          "children":[]},{"id":"AssetHistory12188","name":"AssetHistory",
+          "data":{"$area":62.0,"$color":0.0,"path":
             "no/tellu/findit/services/cassandra/AssetHistory.html#AssetHistory",
             "title":"AssetHistory 62 Elements, 0% Coverage"},"children":[]},{
-          "id":"Count11989","name":"Count","data":{"$area":26.0,"$color":
+          "id":"Count12250","name":"Count","data":{"$area":26.0,"$color":
             0.0,"path":
             "no/tellu/findit/services/cassandra/Count.html#Count","title":
             "Count 26 Elements, 0% Coverage"},"children":[]},{"id":
-          "DeviceHistory12015","name":"DeviceHistory","data":{"$area":24.0,
+          "DeviceHistory12276","name":"DeviceHistory","data":{"$area":24.0,
             "$color":0.0,"path":
             "no/tellu/findit/services/cassandra/DeviceHistory.html#DeviceHistory",
             "title":"DeviceHistory 24 Elements, 0% Coverage"},"children":[]},
-        {"id":"Event12039","name":"Event","data":{"$area":56.0,"$color":
-            0.0,"path":
+        {"id":"DeviceHistoryService12300","name":"DeviceHistoryService",
+          "data":{"$area":0.0,"$color":-100.0,"path":
+            "no/tellu/findit/services/cassandra/DeviceHistoryService.html#DeviceHistoryService",
+            "title":"DeviceHistoryService 0 Elements,  -  Coverage"},
+          "children":[]},{"id":"DeviceHistoryServiceImpl12300","name":
+          "DeviceHistoryServiceImpl","data":{"$area":140.0,"$color":0.0,
+            "path":
+            "no/tellu/findit/services/cassandra/DeviceHistoryServiceImpl.html#DeviceHistoryServiceImpl",
+            "title":"DeviceHistoryServiceImpl 140 Elements, 0% Coverage"},
+          "children":[]},{"id":"Event12440","name":"Event","data":{"$area":
+            56.0,"$color":0.0,"path":
             "no/tellu/findit/services/cassandra/Event.html#Event","title":
             "Event 56 Elements, 0% Coverage"},"children":[]},{"id":
-          "HierarchyLevel12095","name":"HierarchyLevel","data":{"$area":
-            12.0,"$color":0.0,"path":
+          "EventHistoryService12496","name":"EventHistoryService","data":{
+            "$area":0.0,"$color":-100.0,"path":
+            "no/tellu/findit/services/cassandra/EventHistoryService.html#EventHistoryService",
+            "title":"EventHistoryService 0 Elements,  -  Coverage"},
+          "children":[]},{"id":"EventHistoryServiceImpl12496","name":
+          "EventHistoryServiceImpl","data":{"$area":200.0,"$color":0.0,
+            "path":
+            "no/tellu/findit/services/cassandra/EventHistoryServiceImpl.html#EventHistoryServiceImpl",
+            "title":"EventHistoryServiceImpl 200 Elements, 0% Coverage"},
+          "children":[]},{"id":"HierarchyLevel12696","name":
+          "HierarchyLevel","data":{"$area":12.0,"$color":0.0,"path":
             "no/tellu/findit/services/cassandra/HierarchyLevel.html#HierarchyLevel",
             "title":"HierarchyLevel 12 Elements, 0% Coverage"},"children":[]},
-        {"id":"PropertyHistory12107","name":"PropertyHistory","data":{
-            "$area":72.0,"$color":0.0,"path":
+        {"id":"HistoryDatabaseService12708","name":
+          "HistoryDatabaseService","data":{"$area":0.0,"$color":-100.0,
+            "path":
+            "no/tellu/findit/services/cassandra/HistoryDatabaseService.html#HistoryDatabaseService",
+            "title":"HistoryDatabaseService 0 Elements,  -  Coverage"},
+          "children":[]},{"id":"HistoryDatabaseServiceImpl12708","name":
+          "HistoryDatabaseServiceImpl","data":{"$area":640.0,"$color":0.0,
+            "path":
+            "no/tellu/findit/services/cassandra/HistoryDatabaseServiceImpl.html#HistoryDatabaseServiceImpl",
+            "title":"HistoryDatabaseServiceImpl 640 Elements, 0% Coverage"},
+          "children":[]},{"id":"PropertyHistory13348","name":
+          "PropertyHistory","data":{"$area":72.0,"$color":0.0,"path":
             "no/tellu/findit/services/cassandra/PropertyHistory.html#PropertyHistory",
             "title":"PropertyHistory 72 Elements, 0% Coverage"},"children":[]},
-        {"id":"State12179","name":"State","data":{"$area":21.0,"$color":
+        {"id":"State13420","name":"State","data":{"$area":21.0,"$color":
             0.0,"path":
             "no/tellu/findit/services/cassandra/State.html#State","title":
-            "State 21 Elements, 0% Coverage"},"children":[]}]},{"id":
-      "no.tellu.findit0","name":"no.tellu.findit","data":{"$area":8.0,
-        "$color":25.0,"title":"no.tellu.findit 8 Elements, 25% Coverage"},
-      "children":[{"id":"FindItException0","name":"FindItException","data":{
-            "$area":8.0,"$color":25.0,"path":
+            "State 21 Elements, 0% Coverage"},"children":[]},{"id":
+          "StatisticsCQLService13441","name":"StatisticsCQLService","data":{
+            "$area":0.0,"$color":-100.0,"path":
+            "no/tellu/findit/services/cassandra/StatisticsCQLService.html#StatisticsCQLService",
+            "title":"StatisticsCQLService 0 Elements,  -  Coverage"},
+          "children":[]},{"id":"StatisticsCQLServiceImpl13441","name":
+          "StatisticsCQLServiceImpl","data":{"$area":267.0,"$color":0.0,
+            "path":
+            "no/tellu/findit/services/cassandra/StatisticsCQLServiceImpl.html#StatisticsCQLServiceImpl",
+            "title":"StatisticsCQLServiceImpl 267 Elements, 0% Coverage"},
+          "children":[]}]},{"id":"no.tellu.findit0","name":
+      "no.tellu.findit","data":{"$area":8.0,"$color":25.0,"title":
+        "no.tellu.findit 8 Elements, 25% Coverage"},"children":[{"id":
+          "FindItException0","name":"FindItException","data":{"$area":8.0,
+            "$color":25.0,"path":
             "no/tellu/findit/FindItException.html#FindItException","title":
             "FindItException 8 Elements, 25% Coverage"},"children":[]}]},{
       "id":"no.tellu.findit.dao.hibernate1604","name":
