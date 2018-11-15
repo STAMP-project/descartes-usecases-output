@@ -1,0 +1,5011 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>LecteurDimacs.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*******************************************************************************</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * SAT4J: a SATisfiability library for Java Copyright (C) 2004, 2012 Artois University and CNRS</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * All rights reserved. This program and the accompanying materials</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * are made available under the terms of the Eclipse Public License v1.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * which accompanies this distribution, and is available at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  http://www.eclipse.org/legal/epl-v10.html</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Alternatively, the contents of this file may be used under the terms of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * either the GNU Lesser General Public License Version 2.1 or later (the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#34;LGPL&#34;), in which case the provisions of the LGPL are applicable instead</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * of those above. If you wish to allow use of your version of this file only</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * under the terms of the LGPL, and not to allow others to use your version of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this file under the terms of the EPL, indicate your decision by deleting</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the provisions above and replace them with the notice and other provisions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * required by the LGPL. If you do not delete the provisions above, a recipient</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * may use your version of this file under the terms of the EPL or the LGPL.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Based on the original MiniSat specification from:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * An extensible SAT solver. Niklas Een and Niklas Sorensson. Proceedings of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Sixth International Conference on Theory and Applications of Satisfiability</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Testing, LNCS 2919, pp 502-518, 2003.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See www.minisat.se for the original solver in C++.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Contributors:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *   CRIL - initial API and implementation</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *******************************************************************************/</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.sat4j.reader;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.BufferedInputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.InputStream;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.PrintWriter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serializable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.sat4j.core.VecInt;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.sat4j.specs.ContradictionException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.sat4j.specs.IProblem;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.sat4j.specs.ISolver;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.sat4j.specs.IVecInt;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.sat4j.tools.Minimal4InclusionModel;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Dimacs Reader written by Frederic Laihem. It is much faster than DimacsReader</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * because it does not split the input file into strings but reads and interpret</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the input char by char. Hence, it is a bit more difficult to read and to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * modify than DimacsReader.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This reader is used during the SAT Competitions.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author laihem</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author leberre</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class LecteurDimacs extends Reader implements Serializable {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = 1L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /* taille du buffer */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final int TAILLE_BUF = 16384;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private ISolver s;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private transient BufferedInputStream in;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /* nombre de literaux dans le fichier */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_70'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private int nbVars = -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private int nbClauses = -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final char EOF = (char) -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_76'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private final boolean pminimal = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * nomFichier repr?sente le nom du fichier ? lire</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_81'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    public LecteurDimacs(ISolver s) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_82'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.s = s;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_83'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final IProblem parseInstance(final InputStream input)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            throws ParseFormatException, ContradictionException, IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_88'/>
+88
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_88'>1</a>
+<span>
+1. parseInstance : All methods instructions replaced by: return null; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        mapping = null;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_89'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.in = new BufferedInputStream(input, LecteurDimacs.TAILLE_BUF);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_90'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.s.reset();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_91'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        passerCommentaire();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_92'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (this.nbVars &#60; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_93'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            throw new ParseFormatException(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    &#34;DIMACS error: wrong max number of variables&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_96'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.s.newVar(this.nbVars);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_97'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.s.setExpectedNumberOfClauses(this.nbClauses);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_98'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        char car = passerEspaces();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_99'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (this.nbClauses &#62; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_100'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (car == EOF) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_101'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                throw new ParseFormatException(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        &#34;DIMACS error: the clauses are missing&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_104'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            ajouterClauses(car);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_106'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        input.close();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_107'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return this.s;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * on passe les commentaires et on lit le nombre de literaux</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ParseFormatException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private char passerCommentaire() throws IOException, ParseFormatException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        char car;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        for (;;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_118'>2</a>
+<span>
+1. passerCommentaire : All method body replaced by: return &#39;A&#39; &rarr; KILLED<br/>
+2. passerCommentaire : All method body replaced by: return &#39;\40&#39; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            car = passerEspaces();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_119'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (car == &#39;p&#39;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_120'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                checkFormat();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_121'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                car = lectureNombreLiteraux();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_123'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (car != &#39;c&#39; &#38;&#38; car != &#39;p&#39;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_124'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                break; /* fin des commentaires */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_126'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            car = manageCommentLine(); /* on passe la ligne de commentaire */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_127'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (car == EOF) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_128'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_131'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return car;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void checkFormat() throws ParseFormatException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // check if the format is really cnf</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_137'/>
+137
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_137'>1</a>
+<span>
+1. checkFormat : All method instructions removed &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            char car = passerEspaces();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_138'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (&#39;c&#39; != car || &#39;n&#39; != in.read() || &#39;f&#39; != in.read()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_139'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                throw new ParseFormatException(&#34;Expecting file in cnf format.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_141'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (IOException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_142'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            throw new ParseFormatException(e);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_143'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_144'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** lit le nombre repr?sentant le nombre de literaux */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private char lectureNombreLiteraux() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_148'/>
+148
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_148'>2</a>
+<span>
+1. lectureNombreLiteraux : All method body replaced by: return &#39;A&#39; &rarr; KILLED<br/>
+2. lectureNombreLiteraux : All method body replaced by: return &#39;\40&#39; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        char car = nextChiffre(); /* on lit le prchain chiffre */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_149'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (car != EOF) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_150'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.nbVars = car - &#39;0&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            for (;;) { /*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        * on lit le chiffre repr?sentant le nombre de literaux</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_154'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_155'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                if (car &#60; &#39;0&#39; || car &#62; &#39;9&#39;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_156'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                    break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_158'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                this.nbVars = 10 * this.nbVars + car - &#39;0&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_160'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            car = nextChiffre();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_161'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.nbClauses = car - &#39;0&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            for (;;) { /*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        * on lit le chiffre repr?sentant le nombre de literaux</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_165'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_166'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                if (car &#60; &#39;0&#39; || car &#62; &#39;9&#39;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_167'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                    break;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_169'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                this.nbClauses = 10 * this.nbClauses + car - &#39;0&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_171'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (car != &#39;\n&#39; &#38;&#38; car != EOF) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_172'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                nextLine(); /* on lit la fin de la ligne */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_175'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return car;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * lit les clauses et les ajoute dans le vecteur donn? en param?tre</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ParseFormatException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void ajouterClauses(char car)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            throws IOException, ContradictionException, ParseFormatException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_185'/>
+185
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_185'>1</a>
+<span>
+1. ajouterClauses : All method instructions removed &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        final IVecInt lit = new VecInt();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_186'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int val = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_187'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        boolean neg = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        for (;;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            /* on lit le signe du literal */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_190'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (car == &#39;c&#39;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_191'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                manageCommentLine();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_192'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_193'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                continue;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_194'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            } else if (car == &#39;-&#39;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_195'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                neg = true;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_196'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_197'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            } else if (car == &#39;+&#39;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_198'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else /* on le 1er chiffre du literal */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_200'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (car &#62;= &#39;0&#39; &#38;&#38; car &#60;= &#39;9&#39;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_201'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                val = car - &#39;0&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_202'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_204'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                throw new ParseFormatException(&#34;Unknown character &#34; + car);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            /* on lit la suite du literal */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_207'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            while (car &#62;= &#39;0&#39; &#38;&#38; car &#60;= &#39;9&#39;) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_208'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                val = val * 10 + car - &#39;0&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_209'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_211'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (val == 0) { // on a lu toute la clause</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_212'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                this.s.addClause(lit);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_213'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                lit.clear();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                /* on ajoute le literal au vecteur */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // s.newVar(val-1);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_217'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                lit.push(neg ? -val : val);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_218'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                neg = false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_219'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                val = 0; /* on reinitialise les variables */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_221'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (car != EOF) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_222'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                car = passerEspaces();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_224'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (car == EOF) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_225'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                if (!lit.isEmpty()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_226'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                    this.s.addClause(lit);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                break; /* on a lu tout le fichier */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_231'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** passe tout les caract?res d&#39;espacement (espace ou \n) */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private char passerEspaces() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        char car;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        do {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_238'/>
+238
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_238'>2</a>
+<span>
+1. passerEspaces : All method body replaced by: return &#39;A&#39; &rarr; KILLED<br/>
+2. passerEspaces : All method body replaced by: return &#39;\40&#39; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_239'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } while (car == &#39; &#39; || car == &#39;\n&#39;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_241'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return car;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_244'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** passe tout les caract?res jusqu? rencontrer une fin de la ligne */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private char nextLine() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        char car;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        do {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_248'/>
+248
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_248'>2</a>
+<span>
+1. nextLine : All method body replaced by: return &#39;A&#39; &rarr; NO_COVERAGE<br/>
+2. nextLine : All method body replaced by: return &#39;\40&#39; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_249'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } while (car != &#39;\n&#39; &#38;&#38; car != EOF);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_250'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return car;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_251'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_252'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_253'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Map&#60;Integer, String&#62; mapping;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private char manageCommentLine() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_256'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        char car;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_257'/>
+257
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_257'>2</a>
+<span>
+1. manageCommentLine : All method body replaced by: return &#39;A&#39; &rarr; KILLED<br/>
+2. manageCommentLine : All method body replaced by: return &#39;\40&#39; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        StringBuilder stb = new StringBuilder();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        do {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_259'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_260'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            stb.append(car);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_261'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } while (car != &#39;\n&#39; &#38;&#38; car != EOF);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_262'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String str = stb.toString().trim();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_263'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (str.startsWith(&#34;pmin&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_264'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            String[] tokens = str.split(&#34; &#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_265'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            IVecInt p = new VecInt(tokens.length - 2);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_266'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            for (int i = 1; i &#60; tokens.length - 1; i++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_267'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                p.push(Integer.parseInt(tokens[i]));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_268'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_269'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            s = new Minimal4InclusionModel(s, p);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_270'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            System.out.println(&#34;c computing p-minimal model for p=&#34; + p);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_271'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } else if (isUsingMapping()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_272'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            String[] values = str.split(&#34;=&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_273'/>
+273
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_273'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            if (values.length == 2) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_274'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                if (mapping == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_275'/>
+275
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_275'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                    mapping = new HashMap&#60;Integer, String&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_276'/>
+276
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_276'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_277'/>
+277
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_277'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                mapping.put(Integer.valueOf(values[0].trim()),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_278'/>
+278
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_278'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                        values[1].trim());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_279'/>
+279
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_279'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_280'/>
+280
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_280'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_281'/>
+281
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_281'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return car;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_282'/>
+282
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_282'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_283'/>
+283
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_283'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_284'/>
+284
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_284'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** passe tout les caract?re jusqu&#39;? rencontrer un chiffre */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_285'/>
+285
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_285'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private char nextChiffre() throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_286'/>
+286
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_286'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        char car;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_287'/>
+287
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_287'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        do {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_288'/>
+288
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_288'>2</a>
+<span>
+1. nextChiffre : All method body replaced by: return &#39;A&#39; &rarr; KILLED<br/>
+2. nextChiffre : All method body replaced by: return &#39;\40&#39; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            car = (char) this.in.read();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_289'/>
+289
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_289'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        } while (car &#60; &#39;0&#39; || car &#62; &#39;9&#39; &#38;&#38; car != EOF);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_290'/>
+290
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_290'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return car;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_291'/>
+291
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_291'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_292'/>
+292
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_292'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_293'/>
+293
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_293'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_294'/>
+294
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_294'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String decode(int[] model) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_295'/>
+295
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_295'>3</a>
+<span>
+1. decode : All method body replaced by: return &#34;&#34; &rarr; NO_COVERAGE<br/>
+2. decode : All method body replaced by: return &#34;A&#34; &rarr; NO_COVERAGE<br/>
+3. decode : All methods instructions replaced by: return null; &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        StringBuilder stb = new StringBuilder();</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_296'/>
+296
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_296'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        for (int element : model) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_297'/>
+297
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_297'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            stb.append(element);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_298'/>
+298
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_298'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            stb.append(&#34; &#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_299'/>
+299
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_299'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_300'/>
+300
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_300'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        stb.append(&#34;0&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_301'/>
+301
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_301'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return stb.toString();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_302'/>
+302
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_302'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_303'/>
+303
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_303'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_304'/>
+304
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_304'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_305'/>
+305
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_305'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void decode(int[] model, PrintWriter out) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_306'/>
+306
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_306'>1</a>
+<span>
+1. decode : All method instructions removed &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        if (isUsingMapping() &#38;&#38; hasAMapping()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_307'/>
+307
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_307'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            decodeWithMapping(model, out);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_308'/>
+308
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_308'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_309'/>
+309
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_309'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            for (int element : model) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_310'/>
+310
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_310'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                out.print(element);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_311'/>
+311
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_311'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                out.print(&#34; &#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_312'/>
+312
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_312'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_313'/>
+313
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_313'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            out.print(&#34;0&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_314'/>
+314
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_314'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_315'/>
+315
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_315'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_316'/>
+316
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_316'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_317'/>
+317
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_317'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private void decodeWithMapping(int[] model, PrintWriter out) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_318'/>
+318
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_318'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        String mapped;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_319'/>
+319
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_319'>1</a>
+<span>
+1. decodeWithMapping : All method instructions removed &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        for (int element : model) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_320'/>
+320
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_320'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            if (element &#62; 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_321'/>
+321
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_321'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                mapped = mapping.get(element);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_322'/>
+322
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_322'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                if (mapped == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_323'/>
+323
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_323'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                    out.print(element);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_324'/>
+324
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_324'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_325'/>
+325
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_325'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                    out.print(mapped);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_326'/>
+326
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_326'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_327'/>
+327
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_327'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                out.print(&#34; &#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_328'/>
+328
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_328'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_329'/>
+329
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_329'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_330'/>
+330
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_330'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        out.print(&#34;0&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_331'/>
+331
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_331'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_332'/>
+332
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_332'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_333'/>
+333
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_333'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_334'/>
+334
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_334'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean hasAMapping() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_335'/>
+335
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_335'>2</a>
+<span>
+1. hasAMapping : All method body replaced by: return false &rarr; SURVIVED<br/>
+2. hasAMapping : All method body replaced by: return true &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return mapping != null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_336'/>
+336
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_336'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_337'/>
+337
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_337'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_338'/>
+338
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_338'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_339'/>
+339
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_339'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Map&#60;Integer, String&#62; getMapping() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_340'/>
+340
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_340'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return mapping;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_341'/>
+341
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_341'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@6924ffdc_342'/>
+342
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_342'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_88'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseInstance<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All methods instructions replaced by: return null; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>passerCommentaire<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All method body replaced by: return &#39;A&#39; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>passerCommentaire<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All method body replaced by: return &#39;\40&#39; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_137'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>checkFormat<br/><b>Killed by : </b>none</span></span> All method instructions removed &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_148'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lectureNombreLiteraux<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All method body replaced by: return &#39;A&#39; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>lectureNombreLiteraux<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All method body replaced by: return &#39;\40&#39; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_185'>185</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_185'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>ajouterClauses<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All method instructions removed &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_238'>238</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_238'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>passerEspaces<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All method body replaced by: return &#39;A&#39; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>passerEspaces<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All method body replaced by: return &#39;\40&#39; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_248'>248</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_248'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextLine<br/><b>Killed by : </b>none</span></span> All method body replaced by: return &#39;A&#39; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextLine<br/><b>Killed by : </b>none</span></span> All method body replaced by: return &#39;\40&#39; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_257'>257</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_257'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>manageCommentLine<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All method body replaced by: return &#39;A&#39; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>manageCommentLine<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All method body replaced by: return &#39;\40&#39; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_288'>288</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_288'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>nextChiffre<br/><b>Killed by : </b>org.sat4j.CLITest.test04MUSLauncher(org.sat4j.CLITest)</span></span> All method body replaced by: return &#39;A&#39; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>nextChiffre<br/><b>Killed by : </b>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels)</span></span> All method body replaced by: return &#39;\40&#39; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_295'>295</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_295'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decode<br/><b>Killed by : </b>none</span></span> All method body replaced by: return &#34;&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>decode<br/><b>Killed by : </b>none</span></span> All method body replaced by: return &#34;A&#34; &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>decode<br/><b>Killed by : </b>none</span></span> All methods instructions replaced by: return null; &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_306'>306</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_306'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decode<br/><b>Killed by : </b>none</span></span> All method instructions removed &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_319'>319</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_319'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>decodeWithMapping<br/><b>Killed by : </b>none</span></span> All method instructions removed &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@6924ffdc_335'>335</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@6924ffdc_335'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>hasAMapping<br/><b>Killed by : </b>none</span></span> All method body replaced by: return false &rarr; SURVIVED</p> <p class='SURVIVED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>hasAMapping<br/><b>Killed by : </b>none</span></span> All method body replaced by: return true &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>""</li>
+<li class='mutator'>0.0f</li>
+<li class='mutator'>void</li>
+<li class='mutator'>"A"</li>
+<li class='mutator'>(byte)0</li>
+<li class='mutator'>1.0f</li>
+<li class='mutator'>'\40'</li>
+<li class='mutator'>false</li>
+<li class='mutator'>(byte)1</li>
+<li class='mutator'>'A'</li>
+<li class='mutator'>empty</li>
+<li class='mutator'>0</li>
+<li class='mutator'>1</li>
+<li class='mutator'>0.0</li>
+<li class='mutator'>1.0</li>
+<li class='mutator'>null</li>
+<li class='mutator'>true</li>
+<li class='mutator'>(short)1</li>
+<li class='mutator'>1L</li>
+<li class='mutator'>0L</li>
+<li class='mutator'>(short)0</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.sat4j.minisat.M2BackjumpingTest.testJNH40(org.sat4j.minisat.M2BackjumpingTest) (13 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH50(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50UNSAT4(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT5(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH22(org.sat4j.minisat.M2CardMaxYannTest) (4 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH11(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH35(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH22(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT16(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi17(org.sat4j.minisat.M2CardMaxYannTest) (770 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50UNSAT2(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT10(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT1(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT12(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT5(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi21(org.sat4j.minisat.M2BackjumpingTest) (27 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi4(org.sat4j.minisat.M2BackjumpingTest) (5 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH25(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH26(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH35(org.sat4j.minisat.M2CardMaxYannTest) (8 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50UNSAT1(org.sat4j.minisat.M2CardMaxYannTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH38(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi10(org.sat4j.minisat.M2CardMinYannTest) (26 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50UNSAT8(org.sat4j.minisat.M2CardMinYannTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH14(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT14(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH15(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH48(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH19(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH2(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH44(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi23(org.sat4j.minisat.M2CardMinYannTest) (64 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH6(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH40(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.TestsFonctionnels.testUnsat(org.sat4j.minisat.TestsFonctionnels) (0 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi7(org.sat4j.minisat.M2MiniSATTest) (7 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH46(org.sat4j.minisat.M2BackjumpingTest) (23 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50UNSAT8(org.sat4j.minisat.M2MiniSATTest) (0 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH48(org.sat4j.minisat.M2MiniSATTest) (5 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi3(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50UNSAT4(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi13(org.sat4j.minisat.M2BackjumpingTest) (9 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH50(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT9(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH22(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH32(org.sat4j.minisat.M2BackjumpingTest) (9 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH2(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi14(org.sat4j.minisat.M2BackjumpingTest) (15 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH37(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.CLITest.test01DecisionModeSAT(org.sat4j.CLITest) (12 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testHole6(org.sat4j.minisat.M2BackjumpingTest) (249 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH33(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH33(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT16(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH15(org.sat4j.minisat.M2CardMinYannTest) (6 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH45(org.sat4j.minisat.M2BackjumpingTest) (9 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testHole7(org.sat4j.minisat.M2BackjumpingTest) (5390 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT15(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH6(org.sat4j.minisat.M2CardMaxYannTest) (10 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT10(org.sat4j.minisat.M2CardMaxYannTest) (6 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi18(org.sat4j.minisat.M2CardMaxYannTest) (267 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH15(org.sat4j.minisat.M2CardMaxYannTest) (6 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi3(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT11(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi5(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH7(org.sat4j.minisat.M2BackjumpingTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi12(org.sat4j.minisat.M2CardMaxYannTest) (90 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH27(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT11(org.sat4j.minisat.M2CardMaxYannTest) (8 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH14(org.sat4j.minisat.M2CardMaxYannTest) (4 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT13(org.sat4j.minisat.M2BackjumpingTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH27(org.sat4j.minisat.M2CardMaxYannTest) (7 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi11(org.sat4j.minisat.M2MiniSATTest) (10 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi11(org.sat4j.minisat.M2CardMaxYannTest) (29 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH28(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi4(org.sat4j.minisat.M2CardMinYannTest) (7 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH28(org.sat4j.minisat.M2CardMaxYannTest) (7 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH43(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi16(org.sat4j.minisat.M2CardMaxYannTest) (743 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH5(org.sat4j.minisat.M2CardMaxYannTest) (11 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH19(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH19(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi5(org.sat4j.minisat.M2CardMaxYannTest) (21 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50UNSAT1(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH41(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH8(org.sat4j.minisat.M2BackjumpingTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT15(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi6(org.sat4j.minisat.M2CardMaxYannTest) (50 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi14(org.sat4j.minisat.M2MiniSATTest) (12 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi22(org.sat4j.minisat.M2MiniSATTest) (12 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT16(org.sat4j.minisat.M2CardMaxYannTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH4(org.sat4j.minisat.M2CardMaxYannTest) (7 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH16(org.sat4j.minisat.M2MiniSATTest) (25 ms)</li><li>org.sat4j.CLITest.test04MUSLauncher(org.sat4j.CLITest) (26 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi4(org.sat4j.minisat.M2CardMaxYannTest) (37 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH12(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi10(org.sat4j.minisat.M2CardMaxYannTest) (315 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH41(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH19(org.sat4j.minisat.M2BackjumpingTest) (5 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH23(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH29(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH31(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi15(org.sat4j.minisat.M2BackjumpingTest) (31 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT11(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi8(org.sat4j.minisat.M2BackjumpingTest) (10 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT4(org.sat4j.minisat.M2MiniSATTest) (0 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT13(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH1(org.sat4j.minisat.M2CardMaxYannTest) (7 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH27(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT2(org.sat4j.minisat.M2MiniSATTest) (0 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT8(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH47(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT15(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT6(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH29(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH38(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi3(org.sat4j.minisat.M2CardMinYannTest) (7 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH13(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH34(org.sat4j.minisat.M2CardMaxYannTest) (10 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH6(org.sat4j.minisat.M2BackjumpingTest) (12 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50UNSAT8(org.sat4j.minisat.M2CardMaxYannTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH37(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH34(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT6(org.sat4j.minisat.M2CardMaxYannTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH45(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50UNSAT1(org.sat4j.minisat.M2CardMinYannTest) (1 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH9(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT1(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi20(org.sat4j.minisat.M2CardMaxYannTest) (401 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi2(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH49(org.sat4j.minisat.M2MiniSATTest) (6 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH21(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50UNSAT2(org.sat4j.minisat.M2CardMaxYannTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50UNSAT8(org.sat4j.minisat.M2BackjumpingTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH26(org.sat4j.minisat.M2CardMaxYannTest) (10 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50UNSAT3(org.sat4j.minisat.M2CardMinYannTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT14(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT3(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50UNSAT6(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi9(org.sat4j.minisat.M2CardMinYannTest) (14 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH23(org.sat4j.minisat.M2CardMinYannTest) (7 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi20(org.sat4j.minisat.M2MiniSATTest) (147 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH10(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH37(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH24(org.sat4j.minisat.M2CardMaxYannTest) (9 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi22(org.sat4j.minisat.M2CardMinYannTest) (44 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH39(org.sat4j.minisat.M2CardMinYannTest) (6 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH47(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH18(org.sat4j.minisat.M2MiniSATTest) (6 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH21(org.sat4j.minisat.M2CardMinYannTest) (4 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH11(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH42(org.sat4j.minisat.M2CardMaxYannTest) (4 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH39(org.sat4j.minisat.M2BackjumpingTest) (7 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50UNSAT7(org.sat4j.minisat.M2CardMinYannTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH36(org.sat4j.minisat.M2CardMaxYannTest) (9 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT8(org.sat4j.minisat.M2CardMaxYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi18(org.sat4j.minisat.M2CardMinYannTest) (242 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50UNSAT6(org.sat4j.minisat.M2CardMaxYannTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi23(org.sat4j.minisat.M2BackjumpingTest) (25 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH33(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi15(org.sat4j.minisat.M2MiniSATTest) (35 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT8(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH20(org.sat4j.minisat.M2CardMaxYannTest) (8 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi23(org.sat4j.minisat.M2MiniSATTest) (18 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi12(org.sat4j.minisat.M2CardMinYannTest) (26 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH9(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH49(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH23(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH17(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH48(org.sat4j.minisat.M2CardMaxYannTest) (10 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT2(org.sat4j.minisat.M2CardMaxYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH3(org.sat4j.minisat.M2CardMinYannTest) (6 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi8(org.sat4j.minisat.M2MiniSATTest) (8 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH42(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT4(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi5(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH32(org.sat4j.minisat.M2CardMaxYannTest) (26 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH45(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH31(org.sat4j.minisat.M2CardMinYannTest) (4 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH29(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH1(org.sat4j.minisat.M2CardMinYannTest) (8 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50UNSAT5(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT4(org.sat4j.minisat.M2CardMaxYannTest) (14 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH46(org.sat4j.minisat.M2CardMaxYannTest) (20 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50UNSAT2(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi14(org.sat4j.minisat.M2CardMinYannTest) (22 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH15(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT2(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH13(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH43(org.sat4j.minisat.M2CardMinYannTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH30(org.sat4j.minisat.M2CardMaxYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH5(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi18(org.sat4j.minisat.M2MiniSATTest) (50 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH44(org.sat4j.minisat.M2CardMaxYannTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH50(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.CLITest.test08DecisionModeAllInternal(org.sat4j.CLITest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH27(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH3(org.sat4j.minisat.M2MiniSATTest) (5 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH31(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi16(org.sat4j.minisat.M2CardMinYannTest) (133 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH38(org.sat4j.minisat.M2CardMaxYannTest) (6 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi1(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testHole6(org.sat4j.minisat.M2CardMinYannTest) (14 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi13(org.sat4j.minisat.M2CardMinYannTest) (10 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH13(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH7(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT13(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH24(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH28(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH20(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT11(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT14(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT3(org.sat4j.minisat.M2MiniSATTest) (0 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT10(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testHole7(org.sat4j.minisat.M2MiniSATTest) (57 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50UNSAT1(org.sat4j.minisat.M2BackjumpingTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT7(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH40(org.sat4j.minisat.M2CardMaxYannTest) (19 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH32(org.sat4j.minisat.M2CardMinYannTest) (12 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT8(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH22(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testHole6(org.sat4j.minisat.M2CardMaxYannTest) (20 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH17(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH8(org.sat4j.minisat.M2CardMaxYannTest) (6 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH4(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH43(org.sat4j.minisat.M2BackjumpingTest) (7 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH30(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH25(org.sat4j.minisat.M2CardMinYannTest) (4 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH5(org.sat4j.minisat.M2BackjumpingTest) (5 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi16(org.sat4j.minisat.M2BackjumpingTest) (165 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi7(org.sat4j.minisat.M2BackjumpingTest) (9 ms)</li><li>org.sat4j.CLITest.test05DecisionModeUNSATPROOF(org.sat4j.CLITest) (6 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT7(org.sat4j.minisat.M2CardMaxYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH12(org.sat4j.minisat.M2CardMaxYannTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi7(org.sat4j.minisat.M2CardMinYannTest) (19 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH11(org.sat4j.minisat.M2CardMinYannTest) (8 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH49(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi20(org.sat4j.minisat.M2CardMinYannTest) (571 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH35(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi11(org.sat4j.minisat.M2BackjumpingTest) (11 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi21(org.sat4j.minisat.M2CardMinYannTest) (81 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH48(org.sat4j.minisat.M2BackjumpingTest) (12 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH25(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.CLITest.test02DecisionModeUNSAT(org.sat4j.CLITest) (4 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi16(org.sat4j.minisat.M2MiniSATTest) (83 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50UNSAT7(org.sat4j.minisat.M2BackjumpingTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi22(org.sat4j.minisat.M2CardMaxYannTest) (159 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50UNSAT5(org.sat4j.minisat.M2CardMinYannTest) (1 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi12(org.sat4j.minisat.M2MiniSATTest) (15 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50UNSAT4(org.sat4j.minisat.M2CardMaxYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH38(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH24(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi6(org.sat4j.minisat.M2BackjumpingTest) (6 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi8(org.sat4j.minisat.M2CardMinYannTest) (33 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT2(org.sat4j.minisat.M2BackjumpingTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi9(org.sat4j.minisat.M2CardMaxYannTest) (27 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH18(org.sat4j.minisat.M2CardMaxYannTest) (12 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50UNSAT3(org.sat4j.minisat.M2CardMaxYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi15(org.sat4j.minisat.M2CardMaxYannTest) (469 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH9(org.sat4j.minisat.M2CardMaxYannTest) (8 ms)</li><li>org.sat4j.CLITest.test07DecisionModeAllExternal(org.sat4j.CLITest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi1(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH4(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT14(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH11(org.sat4j.minisat.M2CardMaxYannTest) (7 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT16(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT12(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH12(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH42(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi17(org.sat4j.minisat.M2MiniSATTest) (29 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50UNSAT2(org.sat4j.minisat.M2BackjumpingTest) (1 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi17(org.sat4j.minisat.M2BackjumpingTest) (30 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi2(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT7(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testHole7(org.sat4j.minisat.M2CardMinYannTest) (83 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi2(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testHole7(org.sat4j.minisat.M2CardMaxYannTest) (106 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH46(org.sat4j.minisat.M2MiniSATTest) (8 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH50(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi9(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH7(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi2(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.TestsFonctionnels.testBug001(org.sat4j.minisat.TestsFonctionnels) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi4(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT13(org.sat4j.minisat.M2CardMaxYannTest) (6 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50UNSAT6(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi1(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi3(org.sat4j.minisat.M2CardMaxYannTest) (19 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi8(org.sat4j.minisat.M2CardMaxYannTest) (132 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH16(org.sat4j.minisat.M2CardMinYannTest) (44 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi14(org.sat4j.minisat.M2CardMaxYannTest) (138 ms)</li><li>org.sat4j.minisat.TestsFonctionnels.testTrivialInconsistentFormula(org.sat4j.minisat.TestsFonctionnels) (0 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT9(org.sat4j.minisat.M2BackjumpingTest) (1 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT7(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH16(org.sat4j.minisat.M2CardMaxYannTest) (47 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH2(org.sat4j.minisat.M2CardMaxYannTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH17(org.sat4j.minisat.M2CardMinYannTest) (4 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH9(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH17(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH35(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.TestsFonctionnels.testSat(org.sat4j.minisat.TestsFonctionnels) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH3(org.sat4j.minisat.M2CardMaxYannTest) (10 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi7(org.sat4j.minisat.M2CardMaxYannTest) (85 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH18(org.sat4j.minisat.M2CardMinYannTest) (9 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH13(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH14(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT3(org.sat4j.minisat.M2CardMaxYannTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH47(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH10(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH10(org.sat4j.minisat.M2CardMinYannTest) (6 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH29(org.sat4j.minisat.M2CardMaxYannTest) (7 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH16(org.sat4j.minisat.M2BackjumpingTest) (56 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH34(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH25(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi12(org.sat4j.minisat.M2BackjumpingTest) (19 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT15(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH21(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH31(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi6(org.sat4j.minisat.M2CardMinYannTest) (12 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH26(org.sat4j.minisat.M2CardMinYannTest) (6 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testHole6(org.sat4j.minisat.M2MiniSATTest) (10 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi13(org.sat4j.minisat.M2CardMaxYannTest) (27 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50SAT6(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH7(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi1(org.sat4j.minisat.M2CardMaxYannTest) (11 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH44(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.TestSatAssumps.testIterativeCorrectWay(org.sat4j.TestSatAssumps) (662 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH36(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH30(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT12(org.sat4j.minisat.M2CardMaxYannTest) (10 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi18(org.sat4j.minisat.M2BackjumpingTest) (27 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH32(org.sat4j.minisat.M2MiniSATTest) (7 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT12(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH23(org.sat4j.minisat.M2CardMaxYannTest) (9 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH20(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH41(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT6(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50UNSAT7(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi6(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50UNSAT6(org.sat4j.minisat.M2CardMinYannTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH37(org.sat4j.minisat.M2CardMaxYannTest) (8 ms)</li><li>org.sat4j.TestSatAssumps.testIterativeAssumptionCallsWithSet(org.sat4j.TestSatAssumps) (1035 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi5(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH39(org.sat4j.minisat.M2CardMaxYannTest) (12 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testAim50UNSAT3(org.sat4j.minisat.M2MiniSATTest) (1 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50UNSAT3(org.sat4j.minisat.M2BackjumpingTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT4(org.sat4j.minisat.M2BackjumpingTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT9(org.sat4j.minisat.M2CardMinYannTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH21(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH36(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.BugSAT25.testReaderFromLecteurDimacs(org.sat4j.BugSAT25) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi23(org.sat4j.minisat.M2CardMaxYannTest) (279 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50UNSAT4(org.sat4j.minisat.M2CardMinYannTest) (1 ms)</li><li>org.sat4j.CLITest.test06DecisionModeMinOne(org.sat4j.CLITest) (6 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH3(org.sat4j.minisat.M2BackjumpingTest) (6 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50SAT10(org.sat4j.minisat.M2BackjumpingTest) (9 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT9(org.sat4j.minisat.M2CardMaxYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50UNSAT5(org.sat4j.minisat.M2CardMaxYannTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testAim50UNSAT5(org.sat4j.minisat.M2BackjumpingTest) (1 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testIi21(org.sat4j.minisat.M2CardMaxYannTest) (371 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH1(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH1(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH5(org.sat4j.minisat.M2MiniSATTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH30(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT5(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH33(org.sat4j.minisat.M2CardMaxYannTest) (9 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH20(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi10(org.sat4j.minisat.M2BackjumpingTest) (13 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH36(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH49(org.sat4j.minisat.M2CardMaxYannTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH46(org.sat4j.minisat.M2CardMinYannTest) (10 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH14(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH2(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH18(org.sat4j.minisat.M2BackjumpingTest) (9 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi9(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi11(org.sat4j.minisat.M2CardMinYannTest) (13 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi13(org.sat4j.minisat.M2MiniSATTest) (7 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50UNSAT7(org.sat4j.minisat.M2CardMaxYannTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT5(org.sat4j.minisat.M2CardMaxYannTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi21(org.sat4j.minisat.M2MiniSATTest) (16 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH34(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH8(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH10(org.sat4j.minisat.M2BackjumpingTest) (3 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH47(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH40(org.sat4j.minisat.M2CardMinYannTest) (5 ms)</li><li>org.sat4j.TestSatAssumps.testIterativeAssumptionCallsWithList(org.sat4j.TestSatAssumps) (956 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH8(org.sat4j.minisat.M2MiniSATTest) (2 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH43(org.sat4j.minisat.M2CardMaxYannTest) (8 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi20(org.sat4j.minisat.M2BackjumpingTest) (132 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH26(org.sat4j.minisat.M2BackjumpingTest) (5 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testIi22(org.sat4j.minisat.M2BackjumpingTest) (18 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH24(org.sat4j.minisat.M2BackjumpingTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT1(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH6(org.sat4j.minisat.M2CardMinYannTest) (6 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH41(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH28(org.sat4j.minisat.M2BackjumpingTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH42(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li><li>org.sat4j.minisat.M2BackjumpingTest.testJNH12(org.sat4j.minisat.M2BackjumpingTest) (6 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testJNH45(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi15(org.sat4j.minisat.M2CardMinYannTest) (86 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH4(org.sat4j.minisat.M2CardMinYannTest) (3 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testIi17(org.sat4j.minisat.M2CardMinYannTest) (97 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testAim50SAT3(org.sat4j.minisat.M2CardMinYannTest) (1 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testIi10(org.sat4j.minisat.M2MiniSATTest) (7 ms)</li><li>org.sat4j.minisat.M2MiniSATTest.testJNH39(org.sat4j.minisat.M2MiniSATTest) (4 ms)</li><li>org.sat4j.minisat.M2CardMaxYannTest.testAim50SAT1(org.sat4j.minisat.M2CardMaxYannTest) (5 ms)</li><li>org.sat4j.minisat.M2CardMinYannTest.testJNH44(org.sat4j.minisat.M2CardMinYannTest) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.0
+
+</body>
+</html>
