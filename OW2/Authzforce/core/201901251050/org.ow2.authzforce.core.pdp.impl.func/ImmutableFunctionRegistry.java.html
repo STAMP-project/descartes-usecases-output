@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ImmutableFunctionRegistry.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright 2012-2019 Thales Services SAS.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This file is part of AuthzForce CE.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *     http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.ow2.authzforce.core.pdp.impl.func;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Set;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.ow2.authzforce.core.pdp.api.func.Function;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.ow2.authzforce.core.pdp.api.func.GenericHigherOrderFunctionFactory;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.ow2.authzforce.core.pdp.api.value.AttributeValue;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.ow2.authzforce.core.pdp.api.value.Datatype;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.ow2.authzforce.core.pdp.impl.ImmutablePdpExtensionRegistry;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Immutable function registry</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @version $Id: $</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class ImmutableFunctionRegistry implements FunctionRegistry</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>{</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final ImmutablePdpExtensionRegistry&#60;Function&#60;?&#62;&#62; nonGenericFunctionRegistry;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private final ImmutablePdpExtensionRegistry&#60;GenericHigherOrderFunctionFactory&#62; genericHigherOrderFunctionFactoryRegistry;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * Constructor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param nonGenericFunctions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *            (mandatory) non-generic functions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @param genericFunctionFactories</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; *            (optional) generic function factories</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public ImmutableFunctionRegistry(final Set&#60;Function&#60;?&#62;&#62; nonGenericFunctions, final Set&#60;GenericHigherOrderFunctionFactory&#62; genericFunctionFactories)</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_54'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_55'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;this.nonGenericFunctionRegistry = new ImmutablePdpExtensionRegistry&#60;&#62;(Function.class, nonGenericFunctions);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_56'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;this.genericHigherOrderFunctionFactoryRegistry = genericFunctionFactories == null ? null : new ImmutablePdpExtensionRegistry&#60;&#62;(GenericHigherOrderFunctionFactory.class,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;&#9;&#9;genericFunctionFactories);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_58'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * (non-Javadoc)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @see org.ow2.authzforce.core.pdp.impl.func.FunctionRegistry#getFunction(java.lang.String)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Function&#60;?&#62; getFunction(final String functionId)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_68'/>
+68
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_68'>1</a>
+<span>
+1. getFunction : All methods instructions replaced by: return null; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return nonGenericFunctionRegistry.getExtension(functionId);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * (non-Javadoc)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; * @see org.ow2.authzforce.core.pdp.impl.func.FunctionRegistry#getFunction(java.lang.String, org.ow2.authzforce.core.pdp.api.value.DatatypeFactory)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9; */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Function&#60;?&#62; getFunction(final String functionId, final Datatype&#60;? extends AttributeValue&#62; subFunctionReturnType)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_79'>1</a>
+<span>
+1. getFunction : All methods instructions replaced by: return null; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;final Function&#60;?&#62; nonGenericFunc = nonGenericFunctionRegistry.getExtension(functionId);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_80'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;if (nonGenericFunc != null)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_82'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;return nonGenericFunc;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_85'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;if (genericHigherOrderFunctionFactoryRegistry == null)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_87'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;&#9;return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_90'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;final GenericHigherOrderFunctionFactory funcFactory = genericHigherOrderFunctionFactoryRegistry.getExtension(functionId);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_91'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;if (funcFactory == null)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_93'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;&#9;return null;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_96'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;return funcFactory.getInstance(subFunctionReturnType);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Set&#60;Function&#60;?&#62;&#62; getNonGenericFunctions()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_102'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;return this.nonGenericFunctionRegistry.getExtensions();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public Set&#60;GenericHigherOrderFunctionFactory&#62; getGenericFunctionFactories()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_108'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>&#9;&#9;return this.genericHigherOrderFunctionFactoryRegistry.getExtensions();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3bb29351_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3bb29351_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFunction<br/><b>Killed by : </b>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:3.0:function:dateTime-add-dayTimeDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest)</span></span> All methods instructions replaced by: return null; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3bb29351_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3bb29351_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getFunction<br/><b>Killed by : </b>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:1.0:function:any-of-all](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest)</span></span> All methods instructions replaced by: return null; &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>""</li>
+<li class='mutator'>0.0f</li>
+<li class='mutator'>void</li>
+<li class='mutator'>"A"</li>
+<li class='mutator'>(byte)0</li>
+<li class='mutator'>1.0f</li>
+<li class='mutator'>'\40'</li>
+<li class='mutator'>false</li>
+<li class='mutator'>(byte)1</li>
+<li class='mutator'>'A'</li>
+<li class='mutator'>empty</li>
+<li class='mutator'>0</li>
+<li class='mutator'>1</li>
+<li class='mutator'>0.0</li>
+<li class='mutator'>1.0</li>
+<li class='mutator'>null</li>
+<li class='mutator'>true</li>
+<li class='mutator'>(short)1</li>
+<li class='mutator'>1L</li>
+<li class='mutator'>0L</li>
+<li class='mutator'>(short)0</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[34: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[121: urn:oasis:names:tc:xacml:1.0:function:anyURI-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:3.0:function:map](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[44: urn:oasis:names:tc:xacml:1.0:function:integer-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[76: urn:oasis:names:tc:xacml:1.0:function:dateTime-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[124: urn:oasis:names:tc:xacml:1.0:function:dateTime-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[125: urn:oasis:names:tc:xacml:1.0:function:base64Binary-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[81: urn:oasis:names:tc:xacml:1.0:function:hexBinary-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:1.0:function:string-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[44: urn:oasis:names:tc:xacml:2.0:function:ipAddress-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:3.0:function:time-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[50: urn:oasis:names:tc:xacml:1.0:function:date-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringConversionFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:1.0:function:string-normalize-to-lower-case](org.ow2.authzforce.core.pdp.impl.test.func.StringConversionFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[38: urn:oasis:names:tc:xacml:1.0:function:dateTime-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringConversionFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:string-normalize-space](org.ow2.authzforce.core.pdp.impl.test.func.StringConversionFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[82: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:1.0:function:hexBinary-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[21: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[53: urn:oasis:names:tc:xacml:3.0:function:string-contains](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:1.0:function:date-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (11 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[16: urn:oasis:names:tc:xacml:1.0:function:integer-divide](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[18: urn:oasis:names:tc:xacml:1.0:function:integer-divide](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[21: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:string-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[51: urn:oasis:names:tc:xacml:1.0:function:boolean-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:1.0:function:integer-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[17: urn:oasis:names:tc:xacml:1.0:function:integer-divide](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:1.0:function:any-of-all](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[17: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[72: urn:oasis:names:tc:xacml:1.0:function:date-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[47: urn:oasis:names:tc:xacml:1.0:function:date-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[86: urn:oasis:names:tc:xacml:1.0:function:x500Name-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[61: urn:oasis:names:tc:xacml:1.0:function:boolean-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[31: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[19: urn:oasis:names:tc:xacml:1.0:function:integer-divide](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[95: urn:oasis:names:tc:xacml:2.0:function:dnsName-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:1.0:function:integer-subtract](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:3.0:function:dateTime-add-yearMonthDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[111: urn:oasis:names:tc:xacml:1.0:function:time-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:1.0:function:time-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:1.0:function:and](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[136: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (11 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[36: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:1.0:function:time-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:or](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[142: urn:oasis:names:tc:xacml:2.0:function:dnsName-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:3.0:function:dateTime-add-dayTimeDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[35: urn:oasis:names:tc:xacml:1.0:function:hexBinary-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[146: urn:oasis:names:tc:xacml:1.0:function:integer-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (12 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[134: urn:oasis:names:tc:xacml:1.0:function:x500Name-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (14 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:string-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[115: urn:oasis:names:tc:xacml:1.0:function:base64Binary-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[83: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:1.0:function:all-of-all](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[66: urn:oasis:names:tc:xacml:3.0:function:anyURI-substring](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[66: urn:oasis:names:tc:xacml:1.0:function:base64Binary-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[137: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[22: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[41: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:1.0:function:date-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:2.0:function:ipAddress-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:1.0:function:string-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:string-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[67: urn:oasis:names:tc:xacml:1.0:function:double-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[158: urn:oasis:names:tc:xacml:2.0:function:ipAddress-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[65: urn:oasis:names:tc:xacml:3.0:function:anyURI-substring](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[64: urn:oasis:names:tc:xacml:3.0:function:anyURI-substring](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[24: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[50: urn:oasis:names:tc:xacml:1.0:function:string-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[27: urn:oasis:names:tc:xacml:1.0:function:dateTime-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[39: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[123: urn:oasis:names:tc:xacml:1.0:function:hexBinary-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:1.0:function:integer-multiply](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[65: urn:oasis:names:tc:xacml:1.0:function:double-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[20: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[135: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (14 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[122: urn:oasis:names:tc:xacml:1.0:function:date-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[126: urn:oasis:names:tc:xacml:1.0:function:base64Binary-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[151: urn:oasis:names:tc:xacml:1.0:function:time-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[34: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:1.0:function:double-add](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:1.0:function:string-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:2.0:function:rfc822Name-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:1.0:function:integer-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[72: urn:oasis:names:tc:xacml:1.0:function:date-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[25: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:1.0:function:and](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[99: urn:oasis:names:tc:xacml:1.0:function:boolean-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[120: urn:oasis:names:tc:xacml:1.0:function:anyURI-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[26: urn:oasis:names:tc:xacml:1.0:function:integer-mod](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[63: urn:oasis:names:tc:xacml:1.0:function:integer-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[20: urn:oasis:names:tc:xacml:1.0:function:time-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:1.0:function:boolean-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[86: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[75: urn:oasis:names:tc:xacml:1.0:function:dateTime-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:3.0:function:string-from-boolean](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[39: urn:oasis:names:tc:xacml:1.0:function:x500Name-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[141: urn:oasis:names:tc:xacml:2.0:function:dnsName-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (11 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[94: urn:oasis:names:tc:xacml:2.0:function:dnsName-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[35: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[77: urn:oasis:names:tc:xacml:1.0:function:anyURI-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:3.0:function:string-equal-ignore-case](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[34: urn:oasis:names:tc:xacml:1.0:function:floor](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[18: urn:oasis:names:tc:xacml:3.0:function:string-from-date](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[28: urn:oasis:names:tc:xacml:3.0:function:string-from-x500Name](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[43: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[140: urn:oasis:names:tc:xacml:2.0:function:ipAddress-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericConversionFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:1.0:function:integer-to-double](org.ow2.authzforce.core.pdp.impl.test.func.NumericConversionFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[78: urn:oasis:names:tc:xacml:1.0:function:anyURI-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[100: urn:oasis:names:tc:xacml:1.0:function:boolean-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:1.0:function:or](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[91: urn:oasis:names:tc:xacml:2.0:function:ipAddress-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[27: urn:oasis:names:tc:xacml:1.0:function:x500Name-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[91: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericConversionFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:double-to-integer](org.ow2.authzforce.core.pdp.impl.test.func.NumericConversionFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:1.0:function:and](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[98: urn:oasis:names:tc:xacml:1.0:function:string-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[73: urn:oasis:names:tc:xacml:1.0:function:date-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[20: urn:oasis:names:tc:xacml:1.0:function:base64Binary-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[131: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[28: urn:oasis:names:tc:xacml:1.0:function:x500Name-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[29: urn:oasis:names:tc:xacml:1.0:function:anyURI-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[54: urn:oasis:names:tc:xacml:1.0:function:x500Name-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[55: urn:oasis:names:tc:xacml:1.0:function:date-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:3.0:function:integer-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[20: urn:oasis:names:tc:xacml:1.0:function:double-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:boolean-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:1.0:function:double-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:1.0:function:string-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[112: urn:oasis:names:tc:xacml:1.0:function:hexBinary-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[75: urn:oasis:names:tc:xacml:1.0:function:dateTime-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[34: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:2.0:function:ipAddress-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:3.0:function:any-of](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[102: urn:oasis:names:tc:xacml:1.0:function:boolean-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[26: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:1.0:function:integer-multiply](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[23: urn:oasis:names:tc:xacml:1.0:function:double-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[81: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericConversionFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:double-to-integer](org.ow2.authzforce.core.pdp.impl.test.func.NumericConversionFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[66: urn:oasis:names:tc:xacml:1.0:function:double-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[31: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[19: urn:oasis:names:tc:xacml:1.0:function:integer-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[159: urn:oasis:names:tc:xacml:2.0:function:dnsName-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (11 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[118: urn:oasis:names:tc:xacml:1.0:function:time-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (10 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[69: urn:oasis:names:tc:xacml:1.0:function:time-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (17 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:3.0:function:dateTime-subtract-dayTimeDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[64: urn:oasis:names:tc:xacml:1.0:function:integer-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[59: urn:oasis:names:tc:xacml:1.0:function:boolean-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:1.0:function:double-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (12 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[62: urn:oasis:names:tc:xacml:1.0:function:anyURI-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:integer-add](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[23: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[56: urn:oasis:names:tc:xacml:1.0:function:string-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[33: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[63: urn:oasis:names:tc:xacml:1.0:function:hexBinary-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[45: urn:oasis:names:tc:xacml:1.0:function:dateTime-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:1.0:function:integer-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[37: urn:oasis:names:tc:xacml:1.0:function:base64Binary-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[20: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[67: urn:oasis:names:tc:xacml:1.0:function:base64Binary-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[38: urn:oasis:names:tc:xacml:1.0:function:x500Name-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[89: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[28: urn:oasis:names:tc:xacml:1.0:function:dateTime-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[26: urn:oasis:names:tc:xacml:1.0:function:dateTime-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[136: urn:oasis:names:tc:xacml:1.0:function:x500Name-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[71: urn:oasis:names:tc:xacml:1.0:function:date-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[33: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[133: urn:oasis:names:tc:xacml:1.0:function:x500Name-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[36: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[32: urn:oasis:names:tc:xacml:1.0:function:base64Binary-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:1.0:function:boolean-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[110: urn:oasis:names:tc:xacml:1.0:function:anyURI-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (10 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[53: urn:oasis:names:tc:xacml:1.0:function:date-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[45: urn:oasis:names:tc:xacml:2.0:function:dnsName-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:3.0:function:dateTime-subtract-dayTimeDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[21: urn:oasis:names:tc:xacml:1.0:function:double-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:2.0:function:x500Name-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[113: urn:oasis:names:tc:xacml:1.0:function:date-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:1.0:function:integer-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:2.0:function:string-concatenate](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringConversionFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:string-normalize-space](org.ow2.authzforce.core.pdp.impl.test.func.StringConversionFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[34: urn:oasis:names:tc:xacml:1.0:function:hexBinary-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[35: urn:oasis:names:tc:xacml:1.0:function:floor](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[51: urn:oasis:names:tc:xacml:1.0:function:date-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[153: urn:oasis:names:tc:xacml:1.0:function:dateTime-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:1.0:function:time-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:1.0:function:integer-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:3.0:function:date-subtract-yearMonthDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[101: urn:oasis:names:tc:xacml:1.0:function:boolean-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (15 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[157: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[46: urn:oasis:names:tc:xacml:1.0:function:time-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[79: urn:oasis:names:tc:xacml:1.0:function:anyURI-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[125: urn:oasis:names:tc:xacml:1.0:function:dateTime-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (14 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[52: urn:oasis:names:tc:xacml:3.0:function:anyURI-ends-with](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[57: urn:oasis:names:tc:xacml:3.0:function:string-substring](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[17: urn:oasis:names:tc:xacml:1.0:function:time-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:3.0:function:map](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:1.0:function:double-multiply](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[90: urn:oasis:names:tc:xacml:2.0:function:ipAddress-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[39: urn:oasis:names:tc:xacml:1.0:function:dateTime-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[112: urn:oasis:names:tc:xacml:1.0:function:time-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[48: urn:oasis:names:tc:xacml:3.0:function:anyURI-starts-with](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[17: urn:oasis:names:tc:xacml:1.0:function:dateTime-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[93: urn:oasis:names:tc:xacml:1.0:function:x500Name-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[48: urn:oasis:names:tc:xacml:1.0:function:dateTime-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[109: urn:oasis:names:tc:xacml:1.0:function:double-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[101: urn:oasis:names:tc:xacml:1.0:function:boolean-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (12 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[100: urn:oasis:names:tc:xacml:1.0:function:string-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (13 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[26: urn:oasis:names:tc:xacml:1.0:function:date-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (22 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[20: urn:oasis:names:tc:xacml:1.0:function:double-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[37: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:1.0:function:double-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[30: urn:oasis:names:tc:xacml:1.0:function:hexBinary-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[150: urn:oasis:names:tc:xacml:1.0:function:base64Binary-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[37: urn:oasis:names:tc:xacml:1.0:function:x500Name-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[32: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[41: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:3.0:function:double-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[60: urn:oasis:names:tc:xacml:1.0:function:anyURI-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:2.0:function:x500Name-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:3.0:function:integer-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:string-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[21: urn:oasis:names:tc:xacml:1.0:function:time-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[32: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[87: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[98: urn:oasis:names:tc:xacml:1.0:function:string-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:3.0:function:boolean-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[119: urn:oasis:names:tc:xacml:1.0:function:time-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:1.0:function:double-subtract](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[37: urn:oasis:names:tc:xacml:1.0:function:dateTime-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[29: urn:oasis:names:tc:xacml:3.0:function:rfc822Name-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[155: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (12 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[144: urn:oasis:names:tc:xacml:1.0:function:string-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[106: urn:oasis:names:tc:xacml:1.0:function:integer-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[147: urn:oasis:names:tc:xacml:1.0:function:double-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (11 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[56: urn:oasis:names:tc:xacml:1.0:function:date-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[20: urn:oasis:names:tc:xacml:3.0:function:string-from-dateTime](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:1.0:function:string-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[134: urn:oasis:names:tc:xacml:1.0:function:x500Name-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:1.0:function:time-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[42: urn:oasis:names:tc:xacml:2.0:function:ipAddress-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[43: urn:oasis:names:tc:xacml:2.0:function:ipAddress-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[18: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[52: urn:oasis:names:tc:xacml:1.0:function:date-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:1.0:function:string-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:1.0:function:all-of-any](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[82: urn:oasis:names:tc:xacml:1.0:function:hexBinary-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[36: urn:oasis:names:tc:xacml:1.0:function:x500Name-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[85: urn:oasis:names:tc:xacml:1.0:function:base64Binary-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:1.0:function:integer-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[28: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[63: urn:oasis:names:tc:xacml:3.0:function:anyURI-substring](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:1.0:function:integer-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:3.0:function:all-of](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[114: urn:oasis:names:tc:xacml:1.0:function:date-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[59: urn:oasis:names:tc:xacml:1.0:function:date-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[102: urn:oasis:names:tc:xacml:1.0:function:integer-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (20 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[42: urn:oasis:names:tc:xacml:1.0:function:string-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[46: urn:oasis:names:tc:xacml:1.0:function:dateTime-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:3.0:function:double-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:1.0:function:or](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:3.0:function:string-equal-ignore-case](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[107: urn:oasis:names:tc:xacml:1.0:function:double-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[35: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:1.0:function:integer-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:1.0:function:anyURI-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (10 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[54: urn:oasis:names:tc:xacml:1.0:function:integer-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:2.0:function:rfc822Name-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[36: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[92: urn:oasis:names:tc:xacml:1.0:function:x500Name-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[27: urn:oasis:names:tc:xacml:1.0:function:not](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[35: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[156: urn:oasis:names:tc:xacml:1.0:function:x500Name-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[25: urn:oasis:names:tc:xacml:1.0:function:integer-mod](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[33: urn:oasis:names:tc:xacml:1.0:function:round](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[65: urn:oasis:names:tc:xacml:1.0:function:hexBinary-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[36: urn:oasis:names:tc:xacml:1.0:function:base64Binary-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[31: urn:oasis:names:tc:xacml:1.0:function:round](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:1.0:function:anyURI-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[26: urn:oasis:names:tc:xacml:3.0:function:string-from-yearMonthDuration](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[27: urn:oasis:names:tc:xacml:1.0:function:dateTime-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[23: urn:oasis:names:tc:xacml:1.0:function:time-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:1.0:function:integer-add](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[69: urn:oasis:names:tc:xacml:1.0:function:time-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:2.0:function:ipAddress-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[50: urn:oasis:names:tc:xacml:1.0:function:hexBinary-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:string-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[116: urn:oasis:names:tc:xacml:1.0:function:base64Binary-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[31: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[154: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[21: urn:oasis:names:tc:xacml:1.0:function:double-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[118: urn:oasis:names:tc:xacml:1.0:function:dateTime-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[44: urn:oasis:names:tc:xacml:3.0:function:string-from-dnsName](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[123: urn:oasis:names:tc:xacml:1.0:function:dateTime-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[116: urn:oasis:names:tc:xacml:1.0:function:dateTime-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[17: urn:oasis:names:tc:xacml:1.0:function:double-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[43: urn:oasis:names:tc:xacml:1.0:function:dateTime-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[57: urn:oasis:names:tc:xacml:1.0:function:date-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[85: urn:oasis:names:tc:xacml:1.0:function:x500Name-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[83: urn:oasis:names:tc:xacml:1.0:function:base64Binary-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[33: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[130: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:3.0:function:boolean-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[77: urn:oasis:names:tc:xacml:1.0:function:dateTime-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[88: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[90: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[105: urn:oasis:names:tc:xacml:1.0:function:integer-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[40: urn:oasis:names:tc:xacml:1.0:function:dateTime-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:1.0:function:double-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:1.0:function:and](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:3.0:function:dateTime-add-yearMonthDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[53: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:1.0:function:string-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:3.0:function:string-from-integer](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:1.0:function:all-of-any](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[24: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:2.0:function:dnsName-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:2.0:function:dnsName-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[58: urn:oasis:names:tc:xacml:1.0:function:date-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[57: urn:oasis:names:tc:xacml:1.0:function:double-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:1.0:function:string-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[39: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[103: urn:oasis:names:tc:xacml:1.0:function:integer-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (18 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:1.0:function:or](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[107: urn:oasis:names:tc:xacml:1.0:function:double-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (17 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[103: urn:oasis:names:tc:xacml:1.0:function:boolean-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[22: urn:oasis:names:tc:xacml:1.0:function:time-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[49: urn:oasis:names:tc:xacml:1.0:function:string-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[25: urn:oasis:names:tc:xacml:1.0:function:date-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[73: urn:oasis:names:tc:xacml:1.0:function:date-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:1.0:function:boolean-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[115: urn:oasis:names:tc:xacml:1.0:function:date-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[24: urn:oasis:names:tc:xacml:1.0:function:integer-mod](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[35: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[148: urn:oasis:names:tc:xacml:1.0:function:anyURI-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (12 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[104: urn:oasis:names:tc:xacml:1.0:function:integer-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (15 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[139: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[29: urn:oasis:names:tc:xacml:1.0:function:double-abs](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[42: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[29: urn:oasis:names:tc:xacml:1.0:function:dateTime-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[132: urn:oasis:names:tc:xacml:1.0:function:x500Name-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[55: urn:oasis:names:tc:xacml:3.0:function:anyURI-contains](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[19: urn:oasis:names:tc:xacml:1.0:function:time-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:2.0:function:string-concatenate](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[24: urn:oasis:names:tc:xacml:1.0:function:date-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[25: urn:oasis:names:tc:xacml:1.0:function:date-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (10 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[104: urn:oasis:names:tc:xacml:1.0:function:integer-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[68: urn:oasis:names:tc:xacml:1.0:function:base64Binary-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (10 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[27: urn:oasis:names:tc:xacml:1.0:function:integer-abs](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:1.0:function:string-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[33: urn:oasis:names:tc:xacml:1.0:function:base64Binary-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[89: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:1.0:function:x500Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:integer-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:1.0:function:double-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[17: urn:oasis:names:tc:xacml:3.0:function:date-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:1.0:function:integer-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:2.0:function:ipAddress-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:1.0:function:x500Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[64: urn:oasis:names:tc:xacml:1.0:function:hexBinary-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[16: urn:oasis:names:tc:xacml:1.0:function:boolean-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[37: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[44: urn:oasis:names:tc:xacml:1.0:function:dateTime-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:1.0:function:hexBinary-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[22: urn:oasis:names:tc:xacml:3.0:function:string-from-anyURI](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[45: urn:oasis:names:tc:xacml:3.0:function:string-starts-with](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:3.0:function:boolean-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[41: urn:oasis:names:tc:xacml:1.0:function:dateTime-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:3.0:function:any-of-any](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[18: urn:oasis:names:tc:xacml:1.0:function:integer-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[97: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[16: urn:oasis:names:tc:xacml:1.0:function:hexBinary-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[23: urn:oasis:names:tc:xacml:1.0:function:time-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[55: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[130: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[21: urn:oasis:names:tc:xacml:3.0:function:anyURI-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[24: urn:oasis:names:tc:xacml:3.0:function:string-from-dayTimeDuration](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:1.0:function:base64Binary-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:integer-add](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:1.0:function:integer-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:1.0:function:integer-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[88: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:1.0:function:date-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[87: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[25: urn:oasis:names:tc:xacml:1.0:function:anyURI-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:1.0:function:integer-multiply](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[95: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[113: urn:oasis:names:tc:xacml:1.0:function:hexBinary-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[61: urn:oasis:names:tc:xacml:1.0:function:anyURI-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[32: urn:oasis:names:tc:xacml:3.0:function:string-from-ipAddress](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:string-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (13 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:1.0:function:double-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:3.0:function:dateTime-subtract-yearMonthDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[62: urn:oasis:names:tc:xacml:1.0:function:integer-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:2.0:function:ipAddress-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:1.0:function:double-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:1.0:function:boolean-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[59: urn:oasis:names:tc:xacml:3.0:function:string-substring](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:1.0:function:string-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[22: urn:oasis:names:tc:xacml:1.0:function:time-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:3.0:function:dateTime-add-dayTimeDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[92: urn:oasis:names:tc:xacml:2.0:function:ipAddress-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:1.0:function:time-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[94: urn:oasis:names:tc:xacml:1.0:function:x500Name-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[25: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[52: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:1.0:function:and](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:2.0:function:anyURI-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:1.0:function:dateTime-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[110: urn:oasis:names:tc:xacml:1.0:function:time-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[38: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[74: urn:oasis:names:tc:xacml:1.0:function:dateTime-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[46: urn:oasis:names:tc:xacml:2.0:function:dnsName-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[24: urn:oasis:names:tc:xacml:1.0:function:date-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:1.0:function:double-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[121: urn:oasis:names:tc:xacml:1.0:function:date-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[70: urn:oasis:names:tc:xacml:1.0:function:time-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:or](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[61: urn:oasis:names:tc:xacml:3.0:function:string-substring](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[60: urn:oasis:names:tc:xacml:1.0:function:date-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:1.0:function:double-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[19: urn:oasis:names:tc:xacml:3.0:function:dateTime-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[60: urn:oasis:names:tc:xacml:3.0:function:string-substring](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[114: urn:oasis:names:tc:xacml:1.0:function:base64Binary-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[31: urn:oasis:names:tc:xacml:3.0:function:ipAddress-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[47: urn:oasis:names:tc:xacml:3.0:function:anyURI-starts-with](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[122: urn:oasis:names:tc:xacml:1.0:function:hexBinary-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[19: urn:oasis:names:tc:xacml:1.0:function:double-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[18: urn:oasis:names:tc:xacml:1.0:function:base64Binary-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[106: urn:oasis:names:tc:xacml:1.0:function:double-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (25 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[18: urn:oasis:names:tc:xacml:1.0:function:time-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[38: urn:oasis:names:tc:xacml:1.0:function:x500Name-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[26: urn:oasis:names:tc:xacml:1.0:function:anyURI-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[47: urn:oasis:names:tc:xacml:1.0:function:dateTime-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[70: urn:oasis:names:tc:xacml:1.0:function:time-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[23: urn:oasis:names:tc:xacml:1.0:function:time-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[96: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:1.0:function:string-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[25: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:3.0:function:any-of-any](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[30: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[60: urn:oasis:names:tc:xacml:1.0:function:boolean-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[129: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[18: urn:oasis:names:tc:xacml:1.0:function:dateTime-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[139: urn:oasis:names:tc:xacml:2.0:function:ipAddress-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (10 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[30: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[48: urn:oasis:names:tc:xacml:1.0:function:dateTime-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[131: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (15 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[119: urn:oasis:names:tc:xacml:1.0:function:anyURI-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:x500Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[138: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:1.0:function:integer-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:string-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (20 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[109: urn:oasis:names:tc:xacml:1.0:function:anyURI-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (21 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[152: urn:oasis:names:tc:xacml:1.0:function:date-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[58: urn:oasis:names:tc:xacml:1.0:function:string-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[33: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:1.0:function:any-of-all](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[78: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:3.0:function:date-subtract-yearMonthDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[97: urn:oasis:names:tc:xacml:1.0:function:string-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:3.0:function:string-equal-ignore-case](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[93: urn:oasis:names:tc:xacml:2.0:function:dnsName-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[51: urn:oasis:names:tc:xacml:3.0:function:anyURI-ends-with](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:3.0:function:any-of](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[36: urn:oasis:names:tc:xacml:1.0:function:floor](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[59: urn:oasis:names:tc:xacml:1.0:function:double-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[127: urn:oasis:names:tc:xacml:1.0:function:base64Binary-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[11: urn:oasis:names:tc:xacml:1.0:function:and](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:1.0:function:double-add](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[149: urn:oasis:names:tc:xacml:1.0:function:hexBinary-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[28: urn:oasis:names:tc:xacml:1.0:function:anyURI-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[29: urn:oasis:names:tc:xacml:1.0:function:x500Name-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[22: urn:oasis:names:tc:xacml:1.0:function:time-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:string-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:1.0:function:double-multiply](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[55: urn:oasis:names:tc:xacml:1.0:function:integer-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[58: urn:oasis:names:tc:xacml:3.0:function:string-substring](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[128: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[49: urn:oasis:names:tc:xacml:3.0:function:string-ends-with](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[128: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[18: urn:oasis:names:tc:xacml:1.0:function:double-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[80: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[111: urn:oasis:names:tc:xacml:1.0:function:hexBinary-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[76: urn:oasis:names:tc:xacml:1.0:function:dateTime-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:1.0:function:integer-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[22: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[105: urn:oasis:names:tc:xacml:1.0:function:double-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (25 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:2.0:function:anyURI-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:1.0:function:or](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[129: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[57: urn:oasis:names:tc:xacml:1.0:function:string-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[71: urn:oasis:names:tc:xacml:1.0:function:time-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[62: urn:oasis:names:tc:xacml:3.0:function:anyURI-substring](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:1.0:function:integer-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[137: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[84: urn:oasis:names:tc:xacml:1.0:function:x500Name-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[53: urn:oasis:names:tc:xacml:1.0:function:boolean-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[40: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:1.0:function:time-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[24: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[30: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[27: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[31: urn:oasis:names:tc:xacml:1.0:function:hexBinary-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:1.0:function:double-subtract](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[16: urn:oasis:names:tc:xacml:1.0:function:double-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[120: urn:oasis:names:tc:xacml:1.0:function:date-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[99: urn:oasis:names:tc:xacml:1.0:function:string-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[16: urn:oasis:names:tc:xacml:3.0:function:map](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[0: urn:oasis:names:tc:xacml:1.0:function:integer-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[30: urn:oasis:names:tc:xacml:1.0:function:double-abs](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[23: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[47: urn:oasis:names:tc:xacml:2.0:function:dnsName-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:1.0:function:x500Name-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[19: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:1.0:function:and](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[17: urn:oasis:names:tc:xacml:1.0:function:hexBinary-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[135: urn:oasis:names:tc:xacml:1.0:function:x500Name-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[23: urn:oasis:names:tc:xacml:1.0:function:double-divide](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[19: urn:oasis:names:tc:xacml:1.0:function:base64Binary-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[32: urn:oasis:names:tc:xacml:1.0:function:round](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[21: urn:oasis:names:tc:xacml:1.0:function:double-divide](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[20: urn:oasis:names:tc:xacml:1.0:function:double-divide](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:1.0:function:anyURI-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[117: urn:oasis:names:tc:xacml:1.0:function:dateTime-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringConversionFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:1.0:function:string-normalize-to-lower-case](org.ow2.authzforce.core.pdp.impl.test.func.StringConversionFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:3.0:function:any-of-any](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[138: urn:oasis:names:tc:xacml:2.0:function:ipAddress-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[34: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[49: urn:oasis:names:tc:xacml:1.0:function:anyURI-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[126: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (13 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[22: urn:oasis:names:tc:xacml:1.0:function:double-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:3.0:function:date-add-yearMonthDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:1.0:function:integer-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[30: urn:oasis:names:tc:xacml:3.0:function:string-from-rfc822Name](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[40: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:1.0:function:string-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[49: urn:oasis:names:tc:xacml:1.0:function:date-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:3.0:function:dateTime-subtract-yearMonthDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:1.0:function:string-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:3.0:function:string-from-double](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[117: urn:oasis:names:tc:xacml:1.0:function:time-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[28: urn:oasis:names:tc:xacml:1.0:function:integer-abs](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[96: urn:oasis:names:tc:xacml:1.0:function:string-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[26: urn:oasis:names:tc:xacml:1.0:function:not](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[7: urn:oasis:names:tc:xacml:1.0:function:integer-subtract](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:1.0:function:string-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[6: urn:oasis:names:tc:xacml:1.0:function:integer-less-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (0 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[54: urn:oasis:names:tc:xacml:1.0:function:date-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[42: urn:oasis:names:tc:xacml:1.0:function:dateTime-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[15: urn:oasis:names:tc:xacml:1.0:function:double-multiply](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[16: urn:oasis:names:tc:xacml:3.0:function:string-from-time](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[32: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:1.0:function:boolean-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[80: urn:oasis:names:tc:xacml:1.0:function:hexBinary-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[23: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[52: urn:oasis:names:tc:xacml:1.0:function:boolean-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[74: urn:oasis:names:tc:xacml:1.0:function:date-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:1.0:function:x500Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[45: urn:oasis:names:tc:xacml:1.0:function:double-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:1.0:function:anyURI-one-and-only](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[56: urn:oasis:names:tc:xacml:3.0:function:anyURI-contains](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:x500Name-match](org.ow2.authzforce.core.pdp.impl.test.func.SpecialMatchFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[16: urn:oasis:names:tc:xacml:1.0:function:dateTime-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[54: urn:oasis:names:tc:xacml:3.0:function:string-contains](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[132: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[133: urn:oasis:names:tc:xacml:3.0:function:yearMonthDuration-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest.testEvaluate[8: urn:oasis:names:tc:xacml:2.0:function:ipAddress-regexp-match](org.ow2.authzforce.core.pdp.impl.test.func.RegExpBasedFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[22: urn:oasis:names:tc:xacml:1.0:function:double-divide](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:1.0:function:double-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NumericComparisonFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[124: urn:oasis:names:tc:xacml:1.0:function:hexBinary-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[51: urn:oasis:names:tc:xacml:1.0:function:base64Binary-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (6 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[27: urn:oasis:names:tc:xacml:3.0:function:x500Name-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest.testEvaluate[4: urn:oasis:names:tc:xacml:1.0:function:double-add](org.ow2.authzforce.core.pdp.impl.test.func.NumericArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[10: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-intersection](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (11 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[29: urn:oasis:names:tc:xacml:2.0:function:time-in-range](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[56: urn:oasis:names:tc:xacml:1.0:function:integer-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[40: urn:oasis:names:tc:xacml:1.0:function:rfc822Name-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[41: urn:oasis:names:tc:xacml:3.0:function:dnsName-from-string](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[84: urn:oasis:names:tc:xacml:1.0:function:base64Binary-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[12: urn:oasis:names:tc:xacml:1.0:function:all-of-all](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[46: urn:oasis:names:tc:xacml:3.0:function:string-starts-with](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.MainTest.org.ow2.authzforce.core.pdp.impl.test.MainTest (1124 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[43: urn:oasis:names:tc:xacml:1.0:function:boolean-union](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[17: urn:oasis:names:tc:xacml:1.0:function:boolean-at-least-one-member-of](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[16: urn:oasis:names:tc:xacml:1.0:function:time-greater-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[2: urn:oasis:names:tc:xacml:1.0:function:or](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[108: urn:oasis:names:tc:xacml:1.0:function:anyURI-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (12 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[13: urn:oasis:names:tc:xacml:1.0:function:time-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (3 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[108: urn:oasis:names:tc:xacml:1.0:function:double-set-equals](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[50: urn:oasis:names:tc:xacml:3.0:function:string-ends-with](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[5: urn:oasis:names:tc:xacml:3.0:function:string-from-boolean](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:3.0:function:string-from-integer](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[3: urn:oasis:names:tc:xacml:3.0:function:all-of](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[58: urn:oasis:names:tc:xacml:1.0:function:double-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (4 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[145: urn:oasis:names:tc:xacml:1.0:function:boolean-bag](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (10 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[127: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (7 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[48: urn:oasis:names:tc:xacml:1.0:function:string-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (10 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest.testEvaluate[9: urn:oasis:names:tc:xacml:3.0:function:date-add-yearMonthDuration](org.ow2.authzforce.core.pdp.impl.test.func.DateTimeArithmeticFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest.testEvaluate[19: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-equal](org.ow2.authzforce.core.pdp.impl.test.func.EqualityFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[79: urn:oasis:names:tc:xacml:3.0:function:dayTimeDuration-bag-size](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (9 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:3.0:function:string-from-double](org.ow2.authzforce.core.pdp.impl.test.func.StringFunctionsTest) (2 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest.testEvaluate[16: urn:oasis:names:tc:xacml:1.0:function:n-of](org.ow2.authzforce.core.pdp.impl.test.func.LogicalFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest.testEvaluate[68: urn:oasis:names:tc:xacml:1.0:function:time-subset](org.ow2.authzforce.core.pdp.impl.test.func.SetFunctionsTest) (5 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest.testEvaluate[143: urn:oasis:names:tc:xacml:2.0:function:dnsName-is-in](org.ow2.authzforce.core.pdp.impl.test.func.BagFunctionsTest) (8 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[1: urn:oasis:names:tc:xacml:1.0:function:string-greater-than](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest.testEvaluate[21: urn:oasis:names:tc:xacml:1.0:function:time-less-than-or-equal](org.ow2.authzforce.core.pdp.impl.test.func.NonNumericComparisonFunctionsTest) (1 ms)</li><li>org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest.testEvaluate[14: urn:oasis:names:tc:xacml:3.0:function:map](org.ow2.authzforce.core.pdp.impl.test.func.HigherOrderFunctionsTest) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.4.0
+
+</body>
+</html>
