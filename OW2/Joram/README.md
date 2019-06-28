@@ -33,16 +33,27 @@ Insert config for STP in joram/joram/mom/core/pom.xml
             </plugin>
 ```
 
-Build/test joram (from joram/ directory): mvn clean install
+Build/test joram (from joram/ directory):
 
+```
+mvn clean install
+```
+Go in joram/mom/core and run Descartes:
+
+```
 cd joram/mom/core
-Run Descartes once: mvn eu.stamp-project:pitmp-maven-plugin:descartes
+mvn eu.stamp-project:pitmp-maven-plugin:descartes
+```
 
 Run DSpot:
+
+```
 mvn eu.stamp-project:dspot-maven:2.1.1-SNAPSHOT:amplify-unit-tests -Dtest-criterion=JacocoCoverageSelector -Dgenerate-new-test-class=true -Diteration=1
+```
 
 DSpot generates 4 amplified tests, with following enhancements:
 
+```
 Initial instruction coverage: 50 / 46858
 0,11%
 Amplification results with 1 amplified tests.
@@ -66,21 +77,33 @@ Initial instruction coverage: 295 / 46858
 Amplification results with 1 amplified tests.
 Amplified instruction coverage: 352 / 46858
 0,75%
+```
 
 Copy the new tests in the existing test base:
+
+```
 cp -r target/dspot/output/org src/test/java/
+```
 (Note: tests are called "Ampl*Test.java" to avoid confusion in src/test/java ...)
 
+Run the tests:
+
+```
 mvn test
+```
 
 Then run Descartes again:
-mvn eu.stamp-project:pitmp-maven-plugin:descartes
 
-Compare the 2 descartes outputs (2 directories in /tmp/joram-descartes):
-Line Coverage, previously 4% (382/10266), is now 4% (458/10266).
-Mutation Coverage, previously 4% (38/991), is now 7% (69/991).
+```
+mvn eu.stamp-project:pitmp-maven-plugin:descartes
+```
+
+Compare the 2 descartes outputs (2 directories in joram-descartes/):
+- Line Coverage, previously 4% (382/10266), is now 4% (458/10266).
+- Mutation Coverage, previously 4% (38/991), is now 7% (69/991).
 
 CLEANUP if needed:
+```
 rm src/test/java/org/objectweb/joram/mom/*/Ampl*.java
 rm -r /tmp/joram-descartes/
-
+```
