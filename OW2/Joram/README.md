@@ -16,6 +16,8 @@ Descartes outputs (before and after DSpot) in joram-descartes-output/ directory 
 
 DSpot outputs in joram-dspot-output/ directory.
 
+See next part for results details (and how to obtain them).
+
 ## How to reproduce results
 
 ### Joram version (to clone)
