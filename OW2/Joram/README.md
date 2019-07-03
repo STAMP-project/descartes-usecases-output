@@ -138,4 +138,7 @@ Compare the 2 descartes outputs (2 directories in joram-descartes/):
 ```
 rm src/test/java/org/objectweb/joram/mom/*/Ampl*.java
 rm -r /tmp/joram-descartes/
+mvn clean
 ```
+(Note: "mvn clean" is necessary to remove compiled amplified tests).
+
