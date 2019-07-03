@@ -27,6 +27,7 @@ The tests described here use Joram *before* the fix, obtained as follows:
 
 ```
 git clone https://gitlab.ow2.org/joram/joram.git
+cd joram/
 git checkout 108bf73c
 ```
 (An alternate way to obtain a Joram test version is to clone the joram project in Github STAMP group: https://github.com/STAMP-project/joram ).
