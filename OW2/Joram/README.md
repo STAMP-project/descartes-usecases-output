@@ -131,6 +131,10 @@ mvn clean
 
 ## DSpot line coverage (Jacoco)
 
+#### Descartes
+
+See above (Descartes part) if needed. Running Descartes can be useful to gather statistics before running DSpot, then compare.
+
 #### DSpot + unit testing (Jacoco Coverage)
 
 Run DSpot using Jacoco:
