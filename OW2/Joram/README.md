@@ -129,6 +129,8 @@ mvn clean
 ```
 (Note: "mvn clean" is necessary to remove compiled amplified tests).
 
+## DSpot line coverage (Jacoco)
+
 #### DSpot + unit testing (Jacoco Coverage)
 
 Run DSpot using Jacoco:
@@ -189,3 +191,13 @@ mvn eu.stamp-project:pitmp-maven-plugin:descartes
 Compare the 2 descartes outputs (2 directories in joram-descartes/):
 - Line Coverage, previously 4% (382/10266), is now 4% (458/10266).
 - Mutation Coverage, previously 4% (38/991), is now 7% (69/991).
+
+#### CLEANUP if needed
+
+```
+rm src/test/java/org/objectweb/joram/mom/*/Ampl*.java
+rm -r /tmp/joram-descartes/
+mvn clean
+```
+(Note: "mvn clean" is necessary to remove compiled amplified tests).
+
