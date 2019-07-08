@@ -72,9 +72,66 @@ cd joram/mom/core
 mvn eu.stamp-project:pitmp-maven-plugin:descartes
 ```
 
-#### DSpot + unit testing
+#### DSpot + unit testing (Pit mutant coverage)
 
 Run DSpot:
+
+```
+mvn eu.stamp-project:dspot-maven:2.1.1-SNAPSHOT:amplify-unit-tests -Dgenerate-new-test-class=true -Diteration=1
+```
+
+DSpot generates 2 amplified tests, with following enhancements:
+
+```
+Test class that has been amplified: org.objectweb.joram.mom.messages.MessageEncodingTest
+The original test suite kills 38 mutants
+The amplification results with 1 new tests
+it kills 27 more mutants
+
+Test class that has been amplified: org.objectweb.joram.mom.notifications.TopicForwardNotTest
+The original test suite kills 38 mutants
+The amplification results with 1 new tests
+it kills 4 more mutants
+
+```
+
+Copy the new tests in the existing test base:
+
+```
+cp -r target/dspot/output/org src/test/java/
+```
+(Note: tests are called "Ampl*Test.java" to avoid confusion in src/test/java ...)
+
+Run the tests:
+
+```
+mvn test
+```
+
+#### Descartes (again)
+
+Run Descartes again:
+
+```
+mvn eu.stamp-project:pitmp-maven-plugin:descartes
+```
+
+Compare the 2 descartes outputs (2 directories in joram-descartes/):
+- Line Coverage, previously 4% (382/10266), is now 4% (422/10266).
+- Mutation Coverage, previously 4% (38/991), is now 7% (69/991).
+
+#### CLEANUP if needed
+
+```
+rm src/test/java/org/objectweb/joram/mom/*/Ampl*.java
+rm -r /tmp/joram-descartes/
+mvn clean
+```
+(Note: "mvn clean" is necessary to remove compiled amplified tests).
+
+#### DSpot + unit testing (Jacoco Coverage)
+
+Run DSpot using Jacoco:
 
 ```
 mvn eu.stamp-project:dspot-maven:2.1.1-SNAPSHOT:amplify-unit-tests -Dtest-criterion=JacocoCoverageSelector -Dgenerate-new-test-class=true -Diteration=1
@@ -132,13 +189,3 @@ mvn eu.stamp-project:pitmp-maven-plugin:descartes
 Compare the 2 descartes outputs (2 directories in joram-descartes/):
 - Line Coverage, previously 4% (382/10266), is now 4% (458/10266).
 - Mutation Coverage, previously 4% (38/991), is now 7% (69/991).
-
-#### CLEANUP if needed
-
-```
-rm src/test/java/org/objectweb/joram/mom/*/Ampl*.java
-rm -r /tmp/joram-descartes/
-mvn clean
-```
-(Note: "mvn clean" is necessary to remove compiled amplified tests).
-
