@@ -77,8 +77,9 @@ mvn eu.stamp-project:pitmp-maven-plugin:descartes
 Run DSpot:
 
 ```
-mvn eu.stamp-project:dspot-maven:2.1.1-SNAPSHOT:amplify-unit-tests -Dgenerate-new-test-class=true -Diteration=1
+mvn eu.stamp-project:dspot-maven:2.1.2-SNAPSHOT:amplify-unit-tests -Dgenerate-new-test-class=true -Diteration=1
 ```
+(Note: works with DSpot 2.1 release as well).
 
 DSpot generates 2 amplified tests, with following enhancements:
 
@@ -117,8 +118,8 @@ mvn eu.stamp-project:pitmp-maven-plugin:descartes
 ```
 
 Compare the 2 descartes outputs (2 directories in joram-descartes/):
-- Line Coverage, previously 4% (382/10266), is now 4% (422/10266).
-- Mutation Coverage, previously 4% (38/991), is now 7% (69/991).
+- Line Coverage, previously 4% (382/10266), is now 4% (422/10266): increase by 10.5 %
+- Mutation Coverage, previously 4% (38/991), is now 7% (69/991): increase by 81.6 %
 
 #### CLEANUP if needed
 
@@ -140,8 +141,9 @@ See above (Descartes part) if needed. Running Descartes can be useful to gather 
 Run DSpot using Jacoco:
 
 ```
-mvn eu.stamp-project:dspot-maven:2.1.1-SNAPSHOT:amplify-unit-tests -Dtest-criterion=JacocoCoverageSelector -Dgenerate-new-test-class=true -Diteration=1
+mvn eu.stamp-project:dspot-maven:2.1.2-SNAPSHOT:amplify-unit-tests -Dtest-criterion=JacocoCoverageSelector -Dgenerate-new-test-class=true -Diteration=1
 ```
+(Note: works with DSpot 2.1 release as well).
 
 DSpot generates 4 amplified tests, with following enhancements:
 
@@ -193,8 +195,8 @@ mvn eu.stamp-project:pitmp-maven-plugin:descartes
 ```
 
 Compare the 2 descartes outputs (2 directories in joram-descartes/):
-- Line Coverage, previously 4% (382/10266), is now 4% (458/10266).
-- Mutation Coverage, previously 4% (38/991), is now 7% (69/991).
+- Line Coverage, previously 4% (382/10266), is now 4% (458/10266): increase by 19.8 %
+- Mutation Coverage, previously 4% (38/991), is now 7% (69/991): increase by 81,6 %
 
 #### CLEANUP if needed
 
