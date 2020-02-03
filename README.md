@@ -1,4 +1,4 @@
-# descartes-usecases-output
+# Descartes use cases output
 
 ## ActiveEon
 
@@ -20,7 +20,7 @@ Note: a global overview of STAMP OW2 experiments can be found here: https://docs
 
 - Descartes on project TelluLib (see tellu/telluLib readme).
 
-## Xwiki
+## XWiki
 
 - Descartes statistics on XWiki product (see xwiki/Results.md ).
 
